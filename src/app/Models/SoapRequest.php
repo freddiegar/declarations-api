@@ -45,7 +45,8 @@ class SoapRequest extends SoapClient
 
     /**
      * Create header for WSSecurity to send data
-     * @param $auth array Authentication data with login and password keys
+     * @param $auth
+     * @return SoapHeader
      */
     protected function WsSecurity($auth)
     {
@@ -75,7 +76,9 @@ class SoapRequest extends SoapClient
     /**
      * @param $action
      * @param array $data
-     * @return array|bool
+     * @param bool $isChild
+     * @param int $newSpaces
+     * @return array|bool|string
      */
     protected function getXmlFromArray($action, array $data = [], $isChild = false, $newSpaces = 0)
     {

@@ -2,11 +2,18 @@
 
 namespace app\Models;
 
+use app\Contracts\ActionInterface;
 use app\Contracts\ServiceInterface;
+use app\Traits\ActionResultTrait;
 
-class CompanyRegister extends Service implements ServiceInterface
+class CompanyRegister extends Service implements ServiceInterface, ActionInterface
 {
-    const ACTION = 'createRequest';
+    use ActionResultTrait;
+
+    public function action()
+    {
+        return ActionInterface::ACTION_CREATE_REQUEST;
+    }
 
     public function data()
     {

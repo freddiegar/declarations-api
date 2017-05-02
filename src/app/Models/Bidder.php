@@ -2,11 +2,18 @@
 
 namespace app\Models;
 
+use app\Contracts\ActionInterface;
 use app\Contracts\ServiceInterface;
+use app\Traits\ActionResultTrait;
 
-class Bidder extends Service implements ServiceInterface
+class Bidder extends Service implements ServiceInterface, ActionInterface
 {
-    const ACTION = 'manageCompanyBidder';
+    use ActionResultTrait;
+
+    public function action()
+    {
+        return ActionInterface::ACTION_MANAGE_COMPANY_BIDDER;
+    }
 
     public function data()
     {

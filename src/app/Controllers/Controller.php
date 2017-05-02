@@ -64,8 +64,8 @@ class Controller
     }
 
     public static function __callStatic($method, $arguments){
-        if (!method_exists($this, $method)) {
-            throw new MyException("Method static [{$method}] not exist on " . get_class($this), 1);
+        if (!method_exists(self::class, $method)) {
+            throw new MyException("Method static [{$method}] not exist on " . get_class(self::class), 1);
         }
     }
 }

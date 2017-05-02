@@ -2,11 +2,18 @@
 
 namespace app\Models;
 
+use app\Contracts\ActionInterface;
 use app\Contracts\ServiceInterface;
+use app\Traits\ActionResultTrait;
 
-class InformationRequest extends Service implements ServiceInterface
+class InformationRequest extends Service implements ServiceInterface, ActionInterface
 {
-    const ACTION = 'informationRequest';
+    use ActionResultTrait;
+
+    public function action()
+    {
+        return ActionInterface::ACTION_INFORMATION_REQUEST;
+    }
 
     public function data()
     {

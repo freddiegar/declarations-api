@@ -1,7 +1,8 @@
-<?php 
+<?php
 
 namespace app\Models;
 
+use app\Exceptions\MyException;
 use SoapFault;
 
 class Service extends SoapRequest
@@ -12,7 +13,7 @@ class Service extends SoapRequest
     private $password = '9RPqFU1EIC326BpPX45Fk4WsIoOmc7EnfmxGZhvu';
     private $options = [];
     private $response = null;
-    
+
     public function __construct($options = [])
     {
         $this->setOptions($options);
@@ -94,15 +95,15 @@ class Service extends SoapRequest
         try {
 
             $data = $this->data();
-            $action = static::ACTION; 
-            $result = $action . 'Result'; 
+            $action = $this->action();
+            $result = $this->actionResult();
             $tmp = $this->__soapCall($action, [$data]);
 
             if ($tmp->{$result}->status != 'SUCCESS') {
                 $this->setResponse($tmp->{$result}->message, true);
             } else {
                 if ($this->saveResquestId() && isset($tmp->{$result}->requestId)) {
-                    file_put_contents(__DIR__ . '/../../tmp/request.log' , $tmp->{$result}->requestId);
+                    file_put_contents(__DIR__ . '/../../tmp/request.log', $tmp->{$result}->requestId);
                 }
 
                 if ($this->isRedirection() && isset($tmp->{$result}->redirectTo)) {
@@ -127,7 +128,7 @@ class Service extends SoapRequest
             }
         } catch (SoapFault $e) {
             $this->setResponse($e->getMessage());
-        } catch(MyException $e) {
+        } catch (MyException $e) {
             $this->setResponse($e->getMessage());
         }
 

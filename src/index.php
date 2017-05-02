@@ -2,6 +2,7 @@
 
 namespace app;
 
+use app\Exceptions\MyException;
 use Exception;
 use app\Controllers\Controller;
 
@@ -20,8 +21,8 @@ try {
 
         if (!empty($url[1])) {
             // save     : Create or Update requestId
-            // xml      : Show request in XML, no send data
-            // redirect : Redirection to application, only when exist 
+            // xml      : Show request in XML
+            // redirect : Redirection to application, only when exist
             //            property redirectTo in response
             foreach ($url as $index => $argument) {
                 $arguments[] = $argument;
