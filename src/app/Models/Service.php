@@ -37,11 +37,13 @@ class Service extends SoapRequest
 
     private function setResponse($response = null, $isHtml = false, $append = false)
     {
+        $response = print_r($response, 1);
+
         if (!$append) {
             $this->response = '';
         }
 
-        $this->response .= $isHtml ? '<pre>' . print_r($response, 1) . '</pre>' : $response;
+        $this->response .= ($isHtml && !$this->isConsole()) ? "<pre>{$response}</pre>" : $response;
 
         return $this;
     }
@@ -73,7 +75,7 @@ class Service extends SoapRequest
         return false;
     }
 
-    private function saveResquestId()
+    private function saveRequestId()
     {
         if (isset($this->options['save'])) {
             return true;
@@ -102,14 +104,14 @@ class Service extends SoapRequest
             if ($tmp->{$result}->status != 'SUCCESS') {
                 $this->setResponse($tmp->{$result}->message, true);
             } else {
-                if ($this->saveResquestId() && isset($tmp->{$result}->requestId)) {
+                if ($this->saveRequestId() && isset($tmp->{$result}->requestId)) {
                     file_put_contents(__DIR__ . '/../../tmp/request.log', $tmp->{$result}->requestId);
                 }
 
                 if ($this->isRedirection() && isset($tmp->{$result}->redirectTo)) {
                     $url = $tmp->{$result}->redirectTo;
 
-                    if ('cli' == php_sapi_name()) {
+                    if ($this->isConsole()) {
                         // It is console
                         $this->setResponse('Going to: ' . $url);
                     }

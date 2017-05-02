@@ -131,7 +131,7 @@ $payload
 </Envelope>
 SOAP;
 
-        return htmlentities($xml);
+        return $this->isConsole() ? $xml : htmlentities($xml);
     }
 
     /**
@@ -141,5 +141,17 @@ SOAP;
     private function getSpaces($multiplier = 0)
     {
         return str_repeat(' ', $multiplier);
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isConsole()
+    {
+        if ('cli' == php_sapi_name()) {
+            return true;
+        }
+
+        return false;
     }
 }
