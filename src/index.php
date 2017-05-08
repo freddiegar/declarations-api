@@ -28,8 +28,11 @@ try {
     }
 
     if (!empty($url[1])) {
-        // save     : Create or Update requestId
         // xml      : Show request in XML
+        // no-call  : No call web service, by default always make it
+        // link     : Creating a link in response
+        // request  : Get XML SOAP request
+        // save     : Create or Update requestId
         // redirect : Redirection to application, only when exist
         //            property redirectTo in response
         foreach ($url as $index => $argument) {

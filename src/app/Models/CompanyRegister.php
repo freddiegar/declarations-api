@@ -5,10 +5,12 @@ namespace app\Models;
 use app\Contracts\ActionInterface;
 use app\Contracts\ServiceInterface;
 use app\Traits\ActionResultTrait;
+use app\Traits\ReturnUrlTrait;
 
 class CompanyRegister extends Service implements ServiceInterface, ActionInterface
 {
     use ActionResultTrait;
+    use ReturnUrlTrait;
 
     public function action()
     {
@@ -192,7 +194,7 @@ class CompanyRegister extends Service implements ServiceInterface, ActionInterfa
                 'payment' => [
                     'amount' => rand(1000000, 2000000),
                 ],
-                'returnUrl' => 'https://www.google.com.co/',
+                'returnUrl' => $this->returnUrl(),
             ]
         ];
     }
