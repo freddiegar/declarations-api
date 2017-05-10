@@ -1,69 +1,54 @@
-<?php 
+<?php
 
 namespace app\Controllers;
 
-use app\Models\Company;
-use app\Models\CompanyEmail;
-use app\Models\Bidder;
-use app\Models\BidderEmail;
-use app\Models\CompanyRegister;
-use app\Models\ConsumerRent;
-use app\Models\InformationRequest;
 use app\Exceptions\MyException;
+use app\Traits\HelperTrait;
 
 class Controller
 {
+    use HelperTrait;
+
     public function __construct()
     {
     }
 
     public function index()
     {
-        echo 'Hello world!';
+        $br = $this->isConsole() ? PHP_EOL : '<br/>';
+        $dir = 'app/Examples';
+        $text[] = 'Hello dev!, yoy can use the following calls: ';
+
+        if (!is_dir($dir)) {
+            throw new MyException( sprintf('Directory [%s] from %s not is valid.', $dir, getcwd()));
+        }
+
+        $examples = opendir($dir);
+        while (($example = readdir($examples)) !== false) {
+            if (in_array($example, ['.', '..'])) {
+                continue;
+            }
+
+            $text[] = "\t - " . str_replace('.php', '', $example);
+        }
+
+        echo implode($br, $text);
     }
 
-    public function company($options = [])
+    public function __call($method, array $options = [])
     {
-        return (new Company($options))->call()->response();
-    }
+        $class = 'app\Examples\\' . ucfirst($method);
 
-    public function companyEmail($options = [])
-    {
-        return (new CompanyEmail($options))->call()->response();
-    }
-
-    public function bidder($options = [])
-    {
-        return (new Bidder($options))->call()->response();
-    }
-
-    public function bidderEmail($options = [])
-    {
-        return (new BidderEmail($options))->call()->response();
-    }
-
-    public function companyRegister($options = [])
-    {
-        return (new CompanyRegister($options))->call()->response();
-    }
-
-    public function consumerRent($options = [])
-    {
-        return (new ConsumerRent($options))->call()->response();
-    }
-
-    public function informationRequest($options = [])
-    {
-        return (new InformationRequest($options))->call()->response();
-    }
-
-    public function __call($method, $arguments){
-        if (!method_exists($this, $method)) {
+        if (!class_exists($class)) {
             throw new MyException("Method [{$method}] not exist on " . get_class($this), 1);
         }
+
+        return (new $class($options[0]))->call()->response();
+
     }
 
-    public static function __callStatic($method, $arguments){
+    public static function __callStatic($method, array $options = [])
+    {
         if (!method_exists(self::class, $method)) {
             throw new MyException("Method static [{$method}] not exist on " . get_class(self::class), 1);
         }

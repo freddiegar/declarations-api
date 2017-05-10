@@ -1,12 +1,12 @@
 <?php 
 
-namespace app\Models;
+namespace app\Examples;
 
 use app\Contracts\ActionInterface;
-use app\Contracts\ServiceInterface;
+use app\Models\Service;
 use app\Traits\ActionResultTrait;
 
-class BidderEmail extends Service implements ServiceInterface, ActionInterface
+class BidderEmail extends Service implements ActionInterface
 {
     use ActionResultTrait;
 

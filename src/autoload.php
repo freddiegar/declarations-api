@@ -5,7 +5,7 @@ spl_autoload_register(function ($className) {
     $classFile = $src . str_replace('\\', '/', $className) . '.php';
 
     if (!file_exists($classFile)) {
-        throw new Exception("$classFile not exist! [$className]", 1);
+        throw new Exception("File $classFile not exist! [$className]", 1);
     }
 
     require_once $classFile;

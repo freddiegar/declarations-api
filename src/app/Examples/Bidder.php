@@ -1,15 +1,12 @@
 <?php 
 
-namespace app\Models;
+namespace app\Examples;
 
 use app\Contracts\ActionInterface;
-use app\Contracts\ServiceInterface;
-use app\Traits\ActionResultTrait;
+use app\Models\Service;
 
-class Bidder extends Service implements ServiceInterface, ActionInterface
+class Bidder extends Service
 {
-    use ActionResultTrait;
-
     public function action()
     {
         return ActionInterface::ACTION_MANAGE_COMPANY_BIDDER;

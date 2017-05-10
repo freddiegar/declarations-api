@@ -2,17 +2,24 @@
 
 namespace app\Models;
 
+use app\Contracts\ServiceInterface;
+use app\Traits\HelperTrait;
 use SoapClient;
 use SoapHeader;
 use SoapVar;
 
-class SoapRequest extends SoapClient
+class SoapService extends SoapClient implements ServiceInterface
 {
+    use HelperTrait;
+
+    const WSDL = 'https://bender.freddie.dev/declarations/public/soap/request?wsdl';
     const WSSE = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
     const WSU = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
 
-    public function __construct($wsdl, array $auth = [])
+    public function __construct(array $authentication = [])
     {
+
+        $wsdl = self::WSDL;
 
         $options = [
             'soap_version' => SOAP_1_2,
@@ -36,27 +43,27 @@ class SoapRequest extends SoapClient
 
         parent::__construct($wsdl, $options);
 
-        if (isset($auth['login']) && isset($auth['password'])) {
-            $this->__setSoapHeaders($this->wsSecurity($auth));
+        if (isset($authentication['login']) && isset($authentication['password'])) {
+            $this->__setSoapHeaders($this->authentication($authentication));
         }
 
-        unset($auth, $options);
+        unset($authentication, $options);
     }
 
     /**
      * Create header for WSSecurity to send data
-     * @param $auth
+     * @param $authentication
      * @return SoapHeader
      */
-    protected function WsSecurity($auth)
+    public function authentication(array $authentication)
     {
         // WSSecurity
         $nonce = base64_encode(mt_rand());
         $seed = date('c');
-        $login = $auth['login'];
+        $login = $authentication['login'];
         $password = base64_encode(
             sha1(
-                base64_decode($nonce) . $seed . $auth['password'],
+                base64_decode($nonce) . $seed . $authentication['password'],
                 true
             )
         );
@@ -80,7 +87,7 @@ class SoapRequest extends SoapClient
      * @param int $newSpaces
      * @return array|bool|string
      */
-    protected function getXmlFromArray($action, array $data = [], $isChild = false, $newSpaces = 0)
+    public function getServiceRequest($action, array $data = [], $isChild = false, $newSpaces = 0)
     {
         if (!is_array($data)) {
             return false;
@@ -94,10 +101,10 @@ class SoapRequest extends SoapClient
             if (is_array($value)) {
                 if (!isset($value[0])) {
                     $payload[] = $this->getSpaces($spaces) . "<{$key}>";
-                    $payload[] = $this->getXmlFromArray($key, $value, true, 4);
+                    $payload[] = $this->getServiceRequest($key, $value, true, 4);
                     $payload[] = $this->getSpaces($spaces) . "</{$key}>";
                 } else {
-                    $payload[] = $this->getXmlFromArray($key, $value, true, 4);
+                    $payload[] = $this->getServiceRequest($key, $value, true, 4);
                 }
                 continue;
             }
@@ -135,6 +142,16 @@ SOAP;
     }
 
     /**
+     * @param $action
+     * @param array $data
+     * @return mixed
+     */
+    public function serviceCall($action, array $data)
+    {
+        return $this->__soapCall($action, [$data]);
+    }
+
+    /**
      * @param int $multiplier
      * @return string
      */
@@ -144,14 +161,12 @@ SOAP;
     }
 
     /**
-     * @return bool
+     * @param mixed $response
+     * @param string $result
+     * @return mixed
      */
-    protected function isConsole()
+    public function serviceResponse($response, $result)
     {
-        if ('cli' == php_sapi_name()) {
-            return true;
-        }
-
-        return false;
+        return $response->{$result};
     }
 }

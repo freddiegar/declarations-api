@@ -1,13 +1,13 @@
 <?php 
 
-namespace app\Models;
+namespace app\Examples;
 
 use app\Contracts\ActionInterface;
-use app\Contracts\ServiceInterface;
+use app\Models\Service;
 use app\Traits\ActionResultTrait;
 use app\Traits\ReturnUrlTrait;
 
-class CompanyRegister extends Service implements ServiceInterface, ActionInterface
+class CompanyRegister extends Service implements ActionInterface
 {
     use ActionResultTrait;
     use ReturnUrlTrait;

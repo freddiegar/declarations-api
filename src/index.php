@@ -2,9 +2,9 @@
 
 namespace app;
 
+use app\Controllers\Controller;
 use app\Exceptions\MyException;
 use Exception;
-use app\Controllers\Controller;
 
 require 'autoload.php';
 
@@ -19,7 +19,7 @@ try {
     }
 
     $method = 'index';
-    $arguments = [];
+    $options = [];
     $url = explode('/', $queryString);
 
     if (!empty($url[0])) {
@@ -28,20 +28,19 @@ try {
     }
 
     if (!empty($url[1])) {
-        // xml      : Show request in XML
+        // request  : Show request do in service
         // no-call  : No call web service, by default always make it
         // link     : Creating a link in response
-        // request  : Get XML SOAP request
         // save     : Create or Update requestId
         // redirect : Redirection to application, only when exist
         //            property redirectTo in response
-        foreach ($url as $index => $argument) {
-            $arguments[] = $argument;
+        foreach ($url as $index => $option) {
+            $options[] = $option;
         }
     }
 
     $controller = new Controller();
-    echo $controller->{$method}($arguments);
+    echo $controller->{$method}($options);
 } catch (MyException $e) {
     die($e->getMessage());
 } catch (Exception $e) {

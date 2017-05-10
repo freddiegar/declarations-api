@@ -2,184 +2,35 @@
 
 namespace app\Models;
 
+use app\Factories\ServiceFactory;
+use app\Constants\ServiceResponse;
+use app\Contracts\ServiceAbstract;
 use app\Exceptions\MyException;
+use app\Traits\ActionResultTrait;
+use app\Traits\HelperTrait;
+use app\Traits\ServiceTrait;
 use SoapFault;
 
 /**
  * Class Service
  * @package app\Models
  */
-class Service extends SoapRequest
+abstract class Service extends ServiceAbstract
 {
-    const WSDL = 'https://bender.freddie.dev/declarations/public/soap/request?wsdl';
+    use ServiceTrait;
+    use ActionResultTrait;
+    use HelperTrait;
 
-    /**
-     * @var string
-     */
-    private $login = 'Xei3cZAwqn';
-
-    /**
-     * @var string
-     */
-    private $password = '9RPqFU1EIC326BpPX45Fk4WsIoOmc7EnfmxGZhvu';
-
-    /**
-     * @var array
-     */
-    private $options = [];
-
-    /**
-     * @var mixed
-     */
-    private $response = null;
+    private $service = null;
 
     /**
      * Service constructor.
      * @param array $options
      */
-    public function __construct($options = [])
+    public function __construct(array $options = [])
     {
         $this->setOptions($options);
-        parent::__construct(self::WSDL, $this->authentication());
-    }
-
-    /**
-     * @return string
-     */
-    public function login()
-    {
-        return $this->login;
-    }
-
-    /**
-     * @return string
-     */
-    public function password()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function response()
-    {
-        return $this->response;
-    }
-
-    /**
-     * @param null $response
-     * @param bool $escapeHtml
-     * @param bool $append
-     * @return $this
-     */
-    private function setResponse($response = null, $escapeHtml = true, $append = true)
-    {
-        $response = print_r($response, 1);
-
-        if (!$append) {
-            $this->response = '';
-        }
-
-        $this->response .= ($escapeHtml && !$this->isConsole()) ? "<pre>{$response}</pre>" : $response;
-
-        return $this;
-    }
-
-    /**
-     * @param array $options
-     * @return bool
-     */
-    private function setOptions($options = [])
-    {
-        foreach ($options as $option) {
-            $this->options[$option] = true;
-        }
-
-        return true;
-    }
-
-    /**
-     * @return bool
-     */
-    private function getXml()
-    {
-        if (isset($this->options['xml'])) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    private function getRequest()
-    {
-        if (isset($this->options['request'])) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    private function isRedirection()
-    {
-        if (isset($this->options['redirect'])) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    private function saveRequestId()
-    {
-        if (isset($this->options['save'])) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    private function makeLink()
-    {
-        if (isset($this->options['link'])) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    private function noMakeCall()
-    {
-        if (isset($this->options['no-call'])) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @return array
-     */
-    public function authentication()
-    {
-        return [
-            'login' => $this->login(),
-            'password' => $this->password(),
-        ];
+        $this->service = ServiceFactory::instance($this->credentials(), $this->serviceType());
     }
 
     /**
@@ -188,13 +39,12 @@ class Service extends SoapRequest
     public function call()
     {
         try {
-
             $data = $this->data();
             $action = $this->action();
             $result = $this->actionResult();
 
-            if ($this->getXml()) {
-                $this->setResponse($this->getXmlFromArray($action, $data));
+            if ($this->getRequest()) {
+                $this->setResponse($this->service->getServiceRequest($action, $data));
             }
 
             if ($this->noMakeCall()) {
@@ -202,20 +52,16 @@ class Service extends SoapRequest
             }
 
             // Call WebService
-            $tmp = $this->__soapCall($action, [$data]);
+            $response = $this->service->serviceResponse($this->service->serviceCall($action, $data), $result);
 
-            if ($this->getRequest()) {
-                $this->setResponse(htmlentities($this::__getLastRequest()), 1);
-            }
-
-            if ($tmp->{$result}->status != 'SUCCESS') {
-                $this->setResponse($tmp->{$result}->message);
+            if ($response->status != ServiceResponse::SUCCESS) {
+                $this->setResponse($response->message);
             } else {
-                if ($this->saveRequestId() && isset($tmp->{$result}->requestId)) {
-                    file_put_contents(__DIR__ . '/../../tmp/request.log', $tmp->{$result}->requestId);
+                if ($this->saveRequestId() && isset($response->requestId)) {
+                    file_put_contents(__DIR__ . '/../../tmp/request.log', $response->requestId);
                 }
 
-                $url = (isset($tmp->{$result}->redirectTo)) ? $tmp->{$result}->redirectTo : null;
+                $url = (isset($response->redirectTo)) ? $response->redirectTo : null;
 
                 if ($this->isRedirection() && $url) {
 
@@ -227,7 +73,7 @@ class Service extends SoapRequest
                     // On browser
                     header('Location: ' . $url);
                 } else {
-                    $this->setResponse($tmp);
+                    $this->setResponse($response);
                 }
 
                 if ($this->makeLink() && $url) {
@@ -242,4 +88,14 @@ class Service extends SoapRequest
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    abstract public function action();
+
+    /**
+     * @return array
+     */
+    abstract public function data();
 }
