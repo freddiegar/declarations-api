@@ -6,8 +6,19 @@ use app\Constants\ServiceType;
 use app\Models\RestService;
 use app\Models\SoapService;
 
+/**
+ * Class ServiceFactory
+ * @package app\Factories
+ */
 class ServiceFactory
 {
+
+    /**
+     * ServiceFactory constructor.
+     */
+    private function __construct()
+    {
+    }
 
     /**
      * @param array $authentication

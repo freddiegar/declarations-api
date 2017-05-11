@@ -5,22 +5,30 @@ namespace app\Controllers;
 use app\Exceptions\MyException;
 use app\Traits\HelperTrait;
 
+/**
+ * Class Controller
+ * @package app\Controllers
+ */
 class Controller
 {
     use HelperTrait;
 
-    public function __construct()
-    {
-    }
+    const DIR_EXAMPLES = 'app\Examples\\';
 
+    /**
+     * @throws MyException
+     */
     public function index()
     {
         $br = $this->isConsole() ? PHP_EOL : '<br/>';
         $dir = 'app/Examples';
-        $text[] = 'Hello dev!, yoy can use the following calls: ';
+
+        $text[] = 'Hello dev!';
+        $text[] = 'Use syntax: php index.php example [' . implode('|', $this->commandHelp()) . ']';
+        $text[] = 'Try again using one the following example : ';
 
         if (!is_dir($dir)) {
-            throw new MyException( sprintf('Directory [%s] from %s not is valid.', $dir, getcwd()));
+            throw new MyException(sprintf('Directory [%s] from %s not is valid.', $dir, getcwd()));
         }
 
         $examples = opendir($dir);
@@ -29,15 +37,21 @@ class Controller
                 continue;
             }
 
-            $text[] = "\t - " . str_replace('.php', '', $example);
+            $text[] = sprintf("\t - %s", str_replace('.php', '', $example));
         }
 
         echo implode($br, $text);
     }
 
+    /**
+     * @param $method
+     * @param array $options
+     * @return mixed
+     * @throws MyException
+     */
     public function __call($method, array $options = [])
     {
-        $class = 'app\Examples\\' . ucfirst($method);
+        $class = self::DIR_EXAMPLES . ucfirst($method);
 
         if (!class_exists($class)) {
             throw new MyException("Method [{$method}] not exist on " . get_class($this), 1);
@@ -47,6 +61,11 @@ class Controller
 
     }
 
+    /**
+     * @param $method
+     * @param array $options
+     * @throws MyException
+     */
     public static function __callStatic($method, array $options = [])
     {
         if (!method_exists(self::class, $method)) {

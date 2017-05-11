@@ -2,6 +2,10 @@
 
 namespace app\Constants;
 
+/**
+ * Interface ServiceType
+ * @package app\Constants
+ */
 interface ServiceType
 {
     const SOAP = 'soap';

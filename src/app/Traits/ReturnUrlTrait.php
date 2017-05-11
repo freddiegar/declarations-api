@@ -2,8 +2,15 @@
 
 namespace app\Traits;
 
+/**
+ * Trait ReturnUrlTrait
+ * @package app\Traits
+ */
 trait ReturnUrlTrait
 {
+    /**
+     * @return string
+     */
     public function returnUrl()
     {
         $protocol = ($_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';

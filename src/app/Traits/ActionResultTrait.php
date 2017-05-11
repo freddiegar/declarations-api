@@ -2,6 +2,10 @@
 
 namespace app\Traits;
 
+/**
+ * Trait ActionResultTrait
+ * @package app\Traits
+ */
 trait ActionResultTrait
 {
     public function actionResult()

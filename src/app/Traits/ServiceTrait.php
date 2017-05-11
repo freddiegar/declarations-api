@@ -2,8 +2,13 @@
 
 namespace app\Traits;
 
+use app\Constants\Command;
 use app\Constants\ServiceType;
 
+/**
+ * Trait ServiceTrait
+ * @package app\Traits
+ */
 trait ServiceTrait
 {
     /**
@@ -71,15 +76,15 @@ trait ServiceTrait
 
     /**
      * @param array $options
-     * @return bool
+     * @return $this
      */
-    protected function setOptions($options = [])
+    protected function setOptions(array $options = [])
     {
         foreach ($options as $option) {
             $this->options[$option] = true;
         }
 
-        return true;
+        return $this;
     }
 
     /**
@@ -87,11 +92,7 @@ trait ServiceTrait
      */
     protected function getRequest()
     {
-        if (isset($this->options['request'])) {
-            return true;
-        }
-
-        return false;
+        return isset($this->options[Command::REQUEST]);
     }
 
     /**
@@ -99,11 +100,7 @@ trait ServiceTrait
      */
     protected function isRedirection()
     {
-        if (isset($this->options['redirect'])) {
-            return true;
-        }
-
-        return false;
+        return isset($this->options[Command::REDIRECT]);
     }
 
     /**
@@ -111,11 +108,7 @@ trait ServiceTrait
      */
     protected function saveRequestId()
     {
-        if (isset($this->options['save'])) {
-            return true;
-        }
-
-        return false;
+        return isset($this->options[Command::SAVE]);
     }
 
     /**
@@ -123,11 +116,7 @@ trait ServiceTrait
      */
     protected function makeLink()
     {
-        if (isset($this->options['link'])) {
-            return true;
-        }
-
-        return false;
+        return isset($this->options[Command::LINK]);
     }
 
     /**
@@ -135,40 +124,31 @@ trait ServiceTrait
      */
     protected function noMakeCall()
     {
-        if (isset($this->options['no-call'])) {
-            return true;
-        }
+        return isset($this->options[Command::NO_CALL]);
+    }
 
-        return false;
+    /**
+     * @return bool
+     */
+    protected function isServiceSoap()
+    {
+        return isset($this->options[Command::SOAP]);
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isServiceRest()
+    {
+        return isset($this->options[Command::REST]);
     }
 
     /**
      * @return string
      */
-    protected function serviceType(){
+    protected function serviceType()
+    {
         return ($this->isServiceRest()) ? ServiceType::REST : ServiceType::SOAP;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function isServiceSoap(){
-        if (isset($this->options['soap'])) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function isServiceRest(){
-        if (isset($this->options['rest'])) {
-            return true;
-        }
-
-        return false;
     }
 
     /**

@@ -2,6 +2,10 @@
 
 namespace app\Contracts;
 
+/**
+ * Class ServiceAbstract
+ * @package app\Contracts
+ */
 abstract class ServiceAbstract
 {
     /**
@@ -31,7 +35,7 @@ abstract class ServiceAbstract
      * @param array $options
      * @return bool
      */
-    abstract protected function setOptions($options = []);
+    abstract protected function setOptions(array $options = []);
 
     /**
      * @return bool
@@ -82,19 +86,4 @@ abstract class ServiceAbstract
      * @return $this
      */
     abstract protected function call();
-
-    /**
-     * @return string
-     */
-//    abstract public function action();
-
-    /**
-     * @return array
-     */
-//    abstract public function data();
-
-    /**
-     * @return mixed
-     */
-//    abstract public function actionResult();
 }

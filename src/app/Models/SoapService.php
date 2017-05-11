@@ -8,6 +8,10 @@ use SoapClient;
 use SoapHeader;
 use SoapVar;
 
+/**
+ * Class SoapService
+ * @package app\Models
+ */
 class SoapService extends SoapClient implements ServiceInterface
 {
     use HelperTrait;
@@ -18,7 +22,6 @@ class SoapService extends SoapClient implements ServiceInterface
 
     public function __construct(array $authentication = [])
     {
-
         $wsdl = self::WSDL;
 
         $options = [
@@ -43,20 +46,20 @@ class SoapService extends SoapClient implements ServiceInterface
 
         parent::__construct($wsdl, $options);
 
-        if (isset($authentication['login']) && isset($authentication['password'])) {
-            $this->__setSoapHeaders($this->authentication($authentication));
-        }
-
-        unset($authentication, $options);
+        $this->authentication($authentication);
     }
 
     /**
      * Create header for WSSecurity to send data
-     * @param $authentication
-     * @return SoapHeader
+     * @param array $authentication
+     * @return bool|SoapHeader
      */
-    public function authentication(array $authentication)
+    public function authentication(array $authentication = [])
     {
+        if (!isset($authentication['login']) || !isset($authentication['password'])) {
+            return false;
+        }
+
         // WSSecurity
         $nonce = base64_encode(mt_rand());
         $seed = date('c');
@@ -77,7 +80,7 @@ class SoapService extends SoapClient implements ServiceInterface
         $security = new \stdClass();
         $security->UsernameToken = new SoapVar($UsernameToken, SOAP_ENC_OBJECT, null, self::WSSE, 'UsernameToken', self::WSSE);
 
-        return new SoapHeader(self::WSSE, 'Security', $security, true);
+        return $this->__setSoapHeaders(new SoapHeader(self::WSSE, 'Security', $security, true));
     }
 
     /**

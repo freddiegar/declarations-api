@@ -4,19 +4,27 @@ namespace app\Examples;
 
 use app\Contracts\ActionInterface;
 use app\Models\Service;
-use app\Traits\ActionResultTrait;
 use app\Traits\ReturnUrlTrait;
 
-class ConsumerRent extends Service implements ActionInterface
+/**
+ * Class ConsumerRent
+ * @package app\Examples
+ */
+class ConsumerRent extends Service
 {
-    use ActionResultTrait;
     use ReturnUrlTrait;
 
+    /**
+     * @return string
+     */
     public function action()
     {
         return ActionInterface::ACTION_CREATE_REQUEST;
     }
 
+    /**
+     * @return array
+     */
     public function data()
     {
         return [

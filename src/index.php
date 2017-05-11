@@ -10,10 +10,10 @@ require 'autoload.php';
 
 try {
     if (!empty($_SERVER['QUERY_STRING'])) {
-        // For instance: consumerRent/xml
+        // For instance: consumerRent/xml in browser
         $queryString = $_SERVER['QUERY_STRING'];
     } else {
-        // For instance: index.php consumerRent xml
+        // For instance: index.php consumerRent xml in console
         unset($argv[0]); // This is path file
         $queryString = implode('/', $argv);
     }
@@ -28,12 +28,7 @@ try {
     }
 
     if (!empty($url[1])) {
-        // request  : Show request do in service
-        // no-call  : No call web service, by default always make it
-        // link     : Creating a link in response
-        // save     : Create or Update requestId
-        // redirect : Redirection to application, only when exist
-        //            property redirectTo in response
+        // Exist options in request
         foreach ($url as $index => $option) {
             $options[] = $option;
         }

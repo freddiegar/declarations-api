@@ -2,6 +2,10 @@
 
 namespace app\Contracts;
 
+/**
+ * Interface ActionInterface
+ * @package app\Contracts
+ */
 interface ActionInterface
 {
     const ACTION_MANAGE_COMPANY_BIDDER = 'manageCompanyBidder';

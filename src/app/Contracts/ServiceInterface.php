@@ -8,7 +8,7 @@ interface ServiceInterface
      * @param array $authentication
      * @return mixed
      */
-    public function authentication(array $authentication);
+    public function authentication(array $authentication = []);
 
     /**
      * @param $action

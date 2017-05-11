@@ -1,17 +1,27 @@
-<?php 
+<?php
 
 namespace app\Examples;
 
 use app\Contracts\ActionInterface;
 use app\Models\Service;
 
+/**
+ * Class Bidder
+ * @package app\Examples
+ */
 class Bidder extends Service
 {
+    /**
+     * @return string
+     */
     public function action()
     {
         return ActionInterface::ACTION_MANAGE_COMPANY_BIDDER;
     }
 
+    /**
+     * @return array
+     */
     public function data()
     {
         return [

@@ -4,17 +4,24 @@ namespace app\Examples;
 
 use app\Contracts\ActionInterface;
 use app\Models\Service;
-use app\Traits\ActionResultTrait;
 
-class CompanyEmail extends Service implements ActionInterface
+/**
+ * Class CompanyEmail
+ * @package app\Examples
+ */
+class CompanyEmail extends Service
 {
-    use ActionResultTrait;
-
+    /**
+     * @return string
+     */
     public function action()
     {
         return ActionInterface::ACTION_MANAGE_COMPANY;
     }
 
+    /**
+     * @return array
+     */
     public function data()
     {
         return [

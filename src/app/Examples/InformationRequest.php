@@ -1,34 +1,35 @@
-<?php 
+<?php
 
 namespace app\Examples;
 
 use app\Contracts\ActionInterface;
 use app\Models\Service;
-use app\Traits\ActionResultTrait;
 
-class InformationRequest extends Service implements ActionInterface
+/**
+ * Class InformationRequest
+ * @package app\Examples
+ */
+class InformationRequest extends Service
 {
-    use ActionResultTrait;
-
+    /**
+     * @return string
+     */
     public function action()
     {
         return ActionInterface::ACTION_INFORMATION_REQUEST;
     }
 
+    /**
+     * @return array
+     */
     public function data()
     {
-
         $file = __DIR__ . '/../../tmp/request.log';
-        $requestId = '';
-
-        if (file_exists($file)) {
-            $requestId = file_get_contents($file);
-        }
 
         return [
             'payload' => [
                 'locale' => 'es',
-                'requestId' => $requestId,
+                'requestId' => (file_exists($file)) ? file_get_contents($file) : '',
             ]
         ];
     }

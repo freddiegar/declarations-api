@@ -41,7 +41,6 @@ abstract class Service extends ServiceAbstract
         try {
             $data = $this->data();
             $action = $this->action();
-            $result = $this->actionResult();
 
             if ($this->getRequest()) {
                 $this->setResponse($this->service->getServiceRequest($action, $data));
@@ -52,7 +51,10 @@ abstract class Service extends ServiceAbstract
             }
 
             // Call WebService
-            $response = $this->service->serviceResponse($this->service->serviceCall($action, $data), $result);
+            $response = $this->service->serviceResponse(
+                $this->service->serviceCall($action, $data),
+                $this->actionResult()
+            );
 
             if ($response->status != ServiceResponse::SUCCESS) {
                 $this->setResponse($response->message);

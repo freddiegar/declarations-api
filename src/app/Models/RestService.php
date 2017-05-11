@@ -21,14 +21,20 @@ class RestService implements ServiceInterface
      */
     public function __construct(array $authentication = [])
     {
-        if (isset($authentication['login']) && isset($authentication['password'])) {
-            $this->authentication = $this->authentication($authentication);
-        }
+        $this->authentication($authentication);
     }
 
-    public function authentication(array $authentication)
+    /**
+     * @param array $authentication
+     * @return array|bool
+     */
+    public function authentication(array $authentication = [])
     {
-        return [
+        if (!isset($authentication['login']) || !isset($authentication['password'])) {
+            return false;
+        }
+
+        return $this->authentication = [
             'authorization' => [
                 'username' => $authentication['login'],
                 'secret' => $authentication['password'],
@@ -36,6 +42,13 @@ class RestService implements ServiceInterface
         ];
     }
 
+    /**
+     * @param $action
+     * @param array $data
+     * @param bool $isChild
+     * @param int $newSpaces
+     * @return array|bool
+     */
     public function getServiceRequest($action, array $data = [], $isChild = false, $newSpaces = 0)
     {
         if (!is_array($data)) {
@@ -45,6 +58,12 @@ class RestService implements ServiceInterface
         return array_merge($this->authentication, $data['payload']);
     }
 
+    /**
+     * @param string $action
+     * @param array $data
+     * @return mixed
+     * @throws MyException
+     */
     public function serviceCall($action, array $data = [])
     {
         $data = array_merge($this->authentication, $data['payload']);
@@ -72,7 +91,7 @@ class RestService implements ServiceInterface
 
         $decoded = json_decode($result);
         if (isset($decoded->error)) {
-            throw new MyException($decoded->error);
+            throw new MyException('Error: ' . $decoded->error);
         }
 
         return $decoded;
