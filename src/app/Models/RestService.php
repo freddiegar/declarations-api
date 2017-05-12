@@ -2,6 +2,7 @@
 
 namespace app\Models;
 
+use app\Contracts\ActionInterface;
 use app\Contracts\ServiceInterface;
 use app\Exceptions\MyException;
 use app\Traits\FoolTrait;
@@ -13,8 +14,6 @@ use app\Traits\FoolTrait;
 class RestService implements ServiceInterface
 {
     use FoolTrait;
-
-    const WSDL = 'https://bender.freddie.dev/declarations/public/api/v1/company-bidders';
 
     /**
      * @var array
@@ -65,7 +64,7 @@ class RestService implements ServiceInterface
         $headers[] = 'multipart/form-data';
 
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, self::WSDL);
+        curl_setopt($curl, CURLOPT_URL, $this->getServiceUrlFromAction());
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -98,5 +97,30 @@ class RestService implements ServiceInterface
     public function serviceResponse($response, $result)
     {
         return $response;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServiceUrlFromAction()
+    {
+        $serviceUrl = null;
+
+        switch ($this->action()) {
+            case ActionInterface::ACTION_CREATE_REQUEST;
+                $serviceUrl = 'https://bender.freddie.dev/declarations/public/api/v1/income-request';
+                break;
+            case ActionInterface::ACTION_INFORMATION_REQUEST;
+                $serviceUrl = 'https://bender.freddie.dev/declarations/public/api/v1/information-request';
+                break;
+            case ActionInterface::ACTION_MANAGE_COMPANY;
+                $serviceUrl = 'https://bender.freddie.dev/declarations/public/api/v1/companies';
+                break;
+            case ActionInterface::ACTION_MANAGE_COMPANY_BIDDER;
+                $serviceUrl = 'https://bender.freddie.dev/declarations/public/api/v1/company-bidders';
+                break;
+        }
+
+        return $serviceUrl;
     }
 }

@@ -54,11 +54,11 @@ trait HelperTrait
             ],
             [
                 'command' => Command::SOAP,
-                'description' => 'Do request with SOAP'
+                'description' => 'Do request with SOAP method'
             ],
             [
                 'command' => Command::REST,
-                'description' => 'Do request with method RestFul, this value is by default'
+                'description' => 'Do request with RestFul method, this value is by default'
             ],
         ];
     }
@@ -69,6 +69,19 @@ trait HelperTrait
     protected function commandHelp()
     {
         return $this->pluck('command', $this->help());
+    }
+
+    /**
+     * @return string
+     */
+    protected function showHelp()
+    {
+        $help = '';
+        array_map(function ($item) use (&$help) {
+            $help .= sprintf("- %s:\t\t%s", $item['command'], $item['description']) . $this->breakLine();
+        }, $this->help());
+
+        return $help;
     }
 
     /**
@@ -111,7 +124,7 @@ trait HelperTrait
                 $isElementOpen[$tagElement] = $tagElement;
                 if (!$lastCallWasCloseElement && !$addContent) {
                     $spaces += 4;
-                } elseif($addContent) {
+                } elseif ($addContent) {
                     $addContent = false;
                 }
                 $lastCallWasCloseElement = false;

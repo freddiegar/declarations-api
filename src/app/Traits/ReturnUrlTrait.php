@@ -8,13 +8,21 @@ namespace app\Traits;
  */
 trait ReturnUrlTrait
 {
+    use HelperTrait;
+
     /**
      * @return string
      */
     public function returnUrl()
     {
-        $protocol = ($_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+        $returnUrl = 'https://www.google.com.co/';
 
-        return sprintf('%s%s%s/../public/index.php', $protocol, $_SERVER['SERVER_NAME'], $_SERVER['SCRIPT_NAME']);
+        if (!$this->isConsole()) {
+            $protocol = ($_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+            $returnUrl = sprintf('%s%s%s/../public/index.php', $protocol, $_SERVER['SERVER_NAME'], $_SERVER['SCRIPT_NAME']);
+
+        }
+
+        return $returnUrl;
     }
 }

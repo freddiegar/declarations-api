@@ -47,6 +47,11 @@ class Controller
             $text[] = sprintf("\t - %s", str_replace('.php', '', $example));
         }
 
+        $text[] = '';
+        $text[] = 'Options available:';
+        $text[] = '';
+        $text[] = sprintf("%s", $this->showHelp());
+
         return implode($this->breakLine(), $text);
     }
 

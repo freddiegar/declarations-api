@@ -48,4 +48,9 @@ interface ServiceInterface
      * @return mixed
      */
     public function serviceResponse($response, $result);
+
+    /**
+     * @return string
+     */
+    public function getServiceUrlFromAction();
 }

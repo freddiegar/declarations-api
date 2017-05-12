@@ -2,6 +2,7 @@
 
 namespace app\Models;
 
+use app\Contracts\ActionInterface;
 use app\Contracts\ServiceInterface;
 use app\Traits\FoolTrait;
 use app\Traits\HelperTrait;
@@ -18,7 +19,6 @@ class SoapService extends SoapClient implements ServiceInterface
     use HelperTrait;
     use FoolTrait;
 
-    const WSDL = 'https://bender.freddie.dev/declarations/public/soap/request?wsdl';
     const WSSE = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
     const WSU = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
 
@@ -34,7 +34,7 @@ class SoapService extends SoapClient implements ServiceInterface
 
     public function __construct()
     {
-        $wsdl = self::WSDL;
+        $wsdl = $this->getServiceUrlFromAction();
 
         $options = [
             'soap_version' => SOAP_1_2,
@@ -176,5 +176,24 @@ class SoapService extends SoapClient implements ServiceInterface
     private function isCallable()
     {
         return $this->isCallable;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServiceUrlFromAction()
+    {
+        $serviceUrl = null;
+
+        switch ($this->action()) {
+            case ActionInterface::ACTION_CREATE_REQUEST;
+            case ActionInterface::ACTION_INFORMATION_REQUEST;
+            case ActionInterface::ACTION_MANAGE_COMPANY;
+            case ActionInterface::ACTION_MANAGE_COMPANY_BIDDER;
+                $serviceUrl = 'https://bender.freddie.dev/declarations/public/soap/request?wsdl';
+                break;
+        }
+
+        return $serviceUrl;
     }
 }
