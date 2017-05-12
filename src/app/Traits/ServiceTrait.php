@@ -148,7 +148,7 @@ trait ServiceTrait
      */
     protected function serviceType()
     {
-        return ($this->isServiceRest()) ? ServiceType::REST : ServiceType::SOAP;
+        return ($this->isServiceSoap()) ? ServiceType::SOAP : ServiceType::REST;
     }
 
     /**

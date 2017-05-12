@@ -27,12 +27,12 @@ class ServiceFactory
     public static function instance($type)
     {
         switch ($type) {
-            case ServiceType::REST:
-                $factory = RestService::class;
-                break;
             case ServiceType::SOAP:
-            default:
                 $factory = SoapService::class;
+                break;
+            case ServiceType::REST:
+            default:
+                $factory = RestService::class;
                 break;
         }
 

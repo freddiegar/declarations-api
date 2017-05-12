@@ -54,11 +54,11 @@ trait HelperTrait
             ],
             [
                 'command' => Command::SOAP,
-                'description' => 'Do request with SOAP, this value is by default'
+                'description' => 'Do request with SOAP'
             ],
             [
                 'command' => Command::REST,
-                'description' => 'Do request with method RestFul'
+                'description' => 'Do request with method RestFul, this value is by default'
             ],
         ];
     }
@@ -97,7 +97,6 @@ trait HelperTrait
         $addContent = false;
         $tagElement = null;
         $lastCallWasCloseElement = true;
-
 
         foreach ($lines as $line) {
             preg_match('#>[\s\S]*?<#', $line, $matches);
