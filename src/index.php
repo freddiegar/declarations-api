@@ -9,17 +9,19 @@ use Exception;
 require 'autoload.php';
 
 try {
+    $method = 'index';
+    $options = [];
+    $queryString = '';
+
     if (!empty($_SERVER['QUERY_STRING'])) {
         // For instance: consumerRent/xml in browser
         $queryString = $_SERVER['QUERY_STRING'];
-    } else {
+    } elseif (isset($argc)) {
         // For instance: index.php consumerRent xml in console
         unset($argv[0]); // This is path file
         $queryString = implode('/', $argv);
     }
 
-    $method = 'index';
-    $options = [];
     $url = explode('/', $queryString);
 
     if (!empty($url[0])) {
@@ -37,7 +39,7 @@ try {
     $controller = new Controller();
     echo $controller->{$method}($options);
 } catch (MyException $e) {
-    die($e->getMessage());
+    echo $e->getMessage();
 } catch (Exception $e) {
-    die($e->getMessage());
+    echo $e->getMessage();
 }

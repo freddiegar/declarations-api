@@ -5,26 +5,42 @@ namespace app\Contracts;
 interface ServiceInterface
 {
     /**
-     * @param array $authentication
-     * @return mixed
-     */
-    public function authentication(array $authentication = []);
-
-    /**
      * @param $action
-     * @param array $data
-     * @param bool $isChild
-     * @param int $newSpaces
-     * @return mixed
+     * @return $this
      */
-    public function getServiceRequest($action, array $data = [], $isChild = false, $newSpaces = 0);
+    public function setAction($action);
 
     /**
-     * @param string $action
-     * @param array $data
+     * @return string
+     */
+    public function action();
+
+    /**
+     * @param $request
+     * @return $this
+     */
+    public function setRequest(array $request = []);
+
+    /**
+     * @return array
+     */
+    public function request();
+
+    /**
+     * @param array $authentication
+     * @return $this
+     */
+    public function setAuthentication(array $authentication = []);
+
+    /**
      * @return mixed
      */
-    public function serviceCall($action, array $data);
+    public function getServiceRequest();
+
+    /**
+     * @return mixed
+     */
+    public function serviceCall();
 
     /**
      * @param mixed $response

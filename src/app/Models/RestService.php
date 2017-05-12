@@ -4,6 +4,7 @@ namespace app\Models;
 
 use app\Contracts\ServiceInterface;
 use app\Exceptions\MyException;
+use app\Traits\FoolTrait;
 
 /**
  * Class Service
@@ -11,63 +12,55 @@ use app\Exceptions\MyException;
  */
 class RestService implements ServiceInterface
 {
-    const WSDL = 'http://bender.freddie.dev/declarations/public/api/v1/company-bidders';
+    use FoolTrait;
 
+    const WSDL = 'https://bender.freddie.dev/declarations/public/api/v1/company-bidders';
+
+    /**
+     * @var array
+     */
     private $authentication = [];
 
     /**
-     * Service constructor.
-     * @param array $authentication
+     * @return array
      */
-    public function __construct(array $authentication = [])
+    public function request()
     {
-        $this->authentication($authentication);
+        return array_merge($this->authentication, $this->request['payload']);
     }
 
     /**
      * @param array $authentication
-     * @return array|bool
+     * @return $this
      */
-    public function authentication(array $authentication = [])
+    public function setAuthentication(array $authentication = [])
     {
-        if (!isset($authentication['login']) || !isset($authentication['password'])) {
-            return false;
+        if (isset($authentication['login']) && isset($authentication['password'])) {
+            $this->authentication = [
+                'authorization' => [
+                    'username' => $authentication['login'],
+                    'secret' => $authentication['password'],
+                ]
+            ];
         }
 
-        return $this->authentication = [
-            'authorization' => [
-                'username' => $authentication['login'],
-                'secret' => $authentication['password'],
-            ]
-        ];
+        return $this;
     }
 
     /**
-     * @param $action
-     * @param array $data
-     * @param bool $isChild
-     * @param int $newSpaces
-     * @return array|bool
+     * @return array
      */
-    public function getServiceRequest($action, array $data = [], $isChild = false, $newSpaces = 0)
+    public function getServiceRequest()
     {
-        if (!is_array($data)) {
-            return false;
-        }
-
-        return array_merge($this->authentication, $data['payload']);
+        return $this->request();
     }
 
     /**
-     * @param string $action
-     * @param array $data
      * @return mixed
      * @throws MyException
      */
-    public function serviceCall($action, array $data = [])
+    public function serviceCall()
     {
-        $data = array_merge($this->authentication, $data['payload']);
-
         $headers[] = 'Accept: application/json';
         $headers[] = 'multipart/form-data';
 
@@ -78,20 +71,20 @@ class RestService implements ServiceInterface
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->request()));
         $result = curl_exec($curl);
 
         if ($result === false) {
             $info = curl_getinfo($curl);
             curl_close($curl);
-            throw new MyException('Error CURL: ' . print_r($info, 1));
+            throw new MyException($info);
         }
 
         curl_close($curl);
 
         $decoded = json_decode($result);
         if (isset($decoded->error)) {
-            throw new MyException('Error: ' . $decoded->error);
+            throw new MyException($decoded);
         }
 
         return $decoded;

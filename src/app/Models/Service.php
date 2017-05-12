@@ -30,7 +30,11 @@ abstract class Service extends ServiceAbstract
     public function __construct(array $options = [])
     {
         $this->setOptions($options);
-        $this->service = ServiceFactory::instance($this->credentials(), $this->serviceType());
+        $this->service = ServiceFactory::instance($this->serviceType());
+        $this->service
+            ->setAuthentication($this->credentials())
+            ->setAction($this->action())
+            ->setRequest($this->data());
     }
 
     /**
@@ -39,11 +43,8 @@ abstract class Service extends ServiceAbstract
     public function call()
     {
         try {
-            $data = $this->data();
-            $action = $this->action();
-
             if ($this->getRequest()) {
-                $this->setResponse($this->service->getServiceRequest($action, $data));
+                $this->setResponse($this->service->getServiceRequest());
             }
 
             if ($this->noMakeCall()) {
@@ -52,7 +53,7 @@ abstract class Service extends ServiceAbstract
 
             // Call WebService
             $response = $this->service->serviceResponse(
-                $this->service->serviceCall($action, $data),
+                $this->service->serviceCall(),
                 $this->actionResult()
             );
 

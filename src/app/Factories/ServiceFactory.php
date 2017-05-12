@@ -21,11 +21,10 @@ class ServiceFactory
     }
 
     /**
-     * @param array $authentication
      * @param $type
      * @return mixed
      */
-    public static function instance(array $authentication, $type)
+    public static function instance($type)
     {
         switch ($type) {
             case ServiceType::REST:
@@ -37,6 +36,6 @@ class ServiceFactory
                 break;
         }
 
-        return new $factory($authentication);
+        return new $factory();
     }
 }

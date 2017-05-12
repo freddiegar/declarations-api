@@ -19,6 +19,14 @@ trait HelperTrait
     }
 
     /**
+     * @return string
+     */
+    protected function breakLine()
+    {
+        return $this->isConsole() ? PHP_EOL : '<br/>';
+    }
+
+    /**
      * @return array
      */
     protected function help()
@@ -73,5 +81,57 @@ trait HelperTrait
         return array_map(function ($item) use ($key) {
             return $item[$key];
         }, $array);
+    }
+
+    /**
+     * @param $xml
+     * @return string
+     */
+    protected function formatXml($xml)
+    {
+        $lines = explode("\n", str_replace('><', ">\n<", $xml));
+        $formatXml = '';
+        $spaces = 0;
+        $isInitXML = true;
+        $isElementOpen = [];
+        $addContent = false;
+        $tagElement = null;
+        $lastCallWasCloseElement = true;
+
+
+        foreach ($lines as $line) {
+            preg_match('#>[\s\S]*?<#', $line, $matches);
+            $hasContent = count($matches) > 0;
+            $isOpenTag = substr($line, 0, 2) != '</';
+            $isCloseTag = strpos($line, '</') !== false;
+
+            if ($isInitXML) {
+                $isInitXML = false;
+            } elseif (!isset($isElementOpen[$line]) && $isOpenTag && !$hasContent) {
+                $tagElement = $line;
+                $isElementOpen[$tagElement] = $tagElement;
+                if (!$lastCallWasCloseElement && !$addContent) {
+                    $spaces += 4;
+                } elseif($addContent) {
+                    $addContent = false;
+                }
+                $lastCallWasCloseElement = false;
+            } elseif (isset($isElementOpen[$tagElement]) && $hasContent && !$addContent && !$lastCallWasCloseElement) {
+                $spaces += 4;
+                $addContent = true;
+            } elseif (isset($isElementOpen[$tagElement]) && $isCloseTag && !$hasContent) {
+                $spaces -= 4;
+                unset($isElementOpen[$tagElement]);
+                $tagElement = end($isElementOpen);
+                $lastCallWasCloseElement = true;
+                $addContent = false;
+            } elseif ($addContent) {
+                $spaces -= 0;
+            }
+
+            $formatXml .= str_repeat(' ', $spaces) . $line . $this->breakLine();
+        }
+
+        return $formatXml;
     }
 }

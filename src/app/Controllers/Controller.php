@@ -3,6 +3,7 @@
 namespace app\Controllers;
 
 use app\Exceptions\MyException;
+use app\Models\Service;
 use app\Traits\HelperTrait;
 
 /**
@@ -16,16 +17,22 @@ class Controller
     const DIR_EXAMPLES = 'app\Examples\\';
 
     /**
+     * @return string
      * @throws MyException
      */
     public function index()
     {
-        $br = $this->isConsole() ? PHP_EOL : '<br/>';
         $dir = 'app/Examples';
 
+        if ($this->isConsole()) {
+            $message = 'Use syntax: php index.php example [' . implode('|', $this->commandHelp()) . ']';
+        } else {
+            $message = 'Use syntax: index.php/{Example}/[' . implode('/', $this->commandHelp()) . ']';
+        }
+
         $text[] = 'Hello dev!';
-        $text[] = 'Use syntax: php index.php example [' . implode('|', $this->commandHelp()) . ']';
-        $text[] = 'Try again using one the following example : ';
+        $text[] = $message;
+        $text[] = 'Try using one the following example : ';
 
         if (!is_dir($dir)) {
             throw new MyException(sprintf('Directory [%s] from %s not is valid.', $dir, getcwd()));
@@ -40,7 +47,7 @@ class Controller
             $text[] = sprintf("\t - %s", str_replace('.php', '', $example));
         }
 
-        echo implode($br, $text);
+        return implode($this->breakLine(), $text);
     }
 
     /**
@@ -54,10 +61,12 @@ class Controller
         $class = self::DIR_EXAMPLES . ucfirst($method);
 
         if (!class_exists($class)) {
-            throw new MyException("Method [{$method}] not exist on " . get_class($this), 1);
+            throw new MyException("Method [{$method}] not exist in " . get_class($this), 1);
         }
 
-        return (new $class($options[0]))->call()->response();
+        /** @var Service $service */
+        $service = new $class($options[0]);
+        return $service->call()->response();
 
     }
 
