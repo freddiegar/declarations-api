@@ -22,9 +22,11 @@ class ServiceFactory
 
     /**
      * @param $type
+     * @param $url
+     * @param $action
      * @return mixed
      */
-    public static function instance($type)
+    public static function instance($type, $url, $action)
     {
         switch ($type) {
             case ServiceType::SOAP:
@@ -36,6 +38,6 @@ class ServiceFactory
                 break;
         }
 
-        return new $factory();
+        return new $factory($url, $action);
     }
 }

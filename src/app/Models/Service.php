@@ -2,6 +2,7 @@
 
 namespace app\Models;
 
+use app\Contracts\ServiceInterface;
 use app\Factories\ServiceFactory;
 use app\Constants\ServiceResponse;
 use app\Contracts\ServiceAbstract;
@@ -9,6 +10,7 @@ use app\Exceptions\MyException;
 use app\Traits\ActionResultTrait;
 use app\Traits\HelperTrait;
 use app\Traits\ServiceTrait;
+use Exception;
 use SoapFault;
 
 /**
@@ -21,6 +23,9 @@ abstract class Service extends ServiceAbstract
     use ActionResultTrait;
     use HelperTrait;
 
+    /**
+     * @var ServiceInterface
+     */
     private $service = null;
 
     /**
@@ -30,10 +35,9 @@ abstract class Service extends ServiceAbstract
     public function __construct(array $options = [])
     {
         $this->setOptions($options);
-        $this->service = ServiceFactory::instance($this->serviceType());
+        $this->service = ServiceFactory::instance($this->serviceType(), $this->url(), $this->action());
         $this->service
             ->setAuthentication($this->credentials())
-            ->setAction($this->action())
             ->setRequest($this->data());
     }
 
@@ -86,6 +90,8 @@ abstract class Service extends ServiceAbstract
         } catch (SoapFault $e) {
             $this->setResponse($e->getMessage(), false);
         } catch (MyException $e) {
+            $this->setResponse($e->getMessage(), false);
+        } catch (Exception $e) {
             $this->setResponse($e->getMessage(), false);
         }
 

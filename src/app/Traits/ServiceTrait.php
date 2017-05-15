@@ -22,6 +22,12 @@ trait ServiceTrait
     private $password = '9RPqFU1EIC326BpPX45Fk4WsIoOmc7EnfmxGZhvu';
 
     /**
+     * @var string
+     */
+    private $url = 'https://dev.placetopay.com/autodeclaraciones';
+//    private $url = 'https://bender.freddie.dev/declarations/public';
+
+    /**
      * @var array
      */
     private $options = [];
@@ -45,6 +51,14 @@ trait ServiceTrait
     public function password()
     {
         return $this->password;
+    }
+
+    /**
+     * @return string
+     */
+    public function url()
+    {
+        return $this->url;
     }
 
     /**

@@ -4,8 +4,9 @@ namespace app\Models;
 
 use app\Contracts\ActionInterface;
 use app\Contracts\ServiceInterface;
-use app\Traits\FoolTrait;
+use app\Exceptions\MyException;
 use app\Traits\HelperTrait;
+use app\Traits\ServiceInterfaceTrait;
 use SoapClient;
 use SoapHeader;
 use SoapVar;
@@ -17,7 +18,7 @@ use SoapVar;
 class SoapService extends SoapClient implements ServiceInterface
 {
     use HelperTrait;
-    use FoolTrait;
+    use ServiceInterfaceTrait;
 
     const WSSE = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
     const WSU = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
@@ -32,12 +33,15 @@ class SoapService extends SoapClient implements ServiceInterface
      */
     private $xml = '';
 
-    public function __construct()
+    public function __construct($url, $action)
     {
+        $this->setUrl($url);
+        $this->setAction($action);
+
         $wsdl = $this->getServiceUrlFromAction();
 
         $options = [
-            'soap_version' => SOAP_1_2,
+            'soap_version' => SOAP_1_1,
             'trace' => 1,
             'exceptions' => true,
             'location' => str_replace('?wsdl', '', $wsdl),
@@ -180,18 +184,23 @@ class SoapService extends SoapClient implements ServiceInterface
 
     /**
      * @return string
+     * @throws MyException
      */
     public function getServiceUrlFromAction()
     {
-        $serviceUrl = null;
+        $serviceUrl = '';
 
         switch ($this->action()) {
             case ActionInterface::ACTION_CREATE_REQUEST;
             case ActionInterface::ACTION_INFORMATION_REQUEST;
             case ActionInterface::ACTION_MANAGE_COMPANY;
             case ActionInterface::ACTION_MANAGE_COMPANY_BIDDER;
-                $serviceUrl = 'https://bender.freddie.dev/declarations/public/soap/request?wsdl';
+                $serviceUrl =  $this->url() . '/soap/request?wsdl';
                 break;
+        }
+
+        if (empty($serviceUrl)) {
+            throw new MyException('Service URL not valid to [' . $this->action() . '], define it and try again');
         }
 
         return $serviceUrl;

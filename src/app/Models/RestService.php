@@ -5,7 +5,7 @@ namespace app\Models;
 use app\Contracts\ActionInterface;
 use app\Contracts\ServiceInterface;
 use app\Exceptions\MyException;
-use app\Traits\FoolTrait;
+use app\Traits\ServiceInterfaceTrait;
 
 /**
  * Class Service
@@ -13,12 +13,23 @@ use app\Traits\FoolTrait;
  */
 class RestService implements ServiceInterface
 {
-    use FoolTrait;
+    use ServiceInterfaceTrait;
 
     /**
      * @var array
      */
     private $authentication = [];
+
+    /**
+     * RestService constructor.
+     * @param $url
+     * @param $action
+     */
+    function __construct($url, $action)
+    {
+        $this->setUrl($url);
+        $this->setAction($action);
+    }
 
     /**
      * @return array
@@ -104,20 +115,20 @@ class RestService implements ServiceInterface
      */
     public function getServiceUrlFromAction()
     {
-        $serviceUrl = null;
+        $serviceUrl = '';
 
         switch ($this->action()) {
             case ActionInterface::ACTION_CREATE_REQUEST;
-                $serviceUrl = 'https://bender.freddie.dev/declarations/public/api/v1/income-request';
+                $serviceUrl = $this->url() . '/api/v1/income-request';
                 break;
             case ActionInterface::ACTION_INFORMATION_REQUEST;
-                $serviceUrl = 'https://bender.freddie.dev/declarations/public/api/v1/information-request';
+                $serviceUrl = $this->url() . '/api/v1/information-request';
                 break;
             case ActionInterface::ACTION_MANAGE_COMPANY;
-                $serviceUrl = 'https://bender.freddie.dev/declarations/public/api/v1/companies';
+                $serviceUrl = $this->url() . '/api/v1/companies';
                 break;
             case ActionInterface::ACTION_MANAGE_COMPANY_BIDDER;
-                $serviceUrl = 'https://bender.freddie.dev/declarations/public/api/v1/company-bidders';
+                $serviceUrl = $this->url() . '/api/v1/company-bidders';
                 break;
         }
 
