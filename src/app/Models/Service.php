@@ -61,8 +61,14 @@ abstract class Service extends ServiceAbstract
                 $this->actionResult()
             );
 
-            if ($response->status != ServiceResponse::SUCCESS) {
-                $this->setResponse($response->message);
+            if (!$response) {
+                $this->setResponse(sprintf('Response empty to %s in %s', $this->action(), $this->url()));
+            } elseif ($response->status != ServiceResponse::SUCCESS) {
+                if (isset($response->message)) {
+                    $this->setResponse($response->message);
+                } else {
+                    $this->setResponse($response);
+                }
             } else {
                 if ($this->saveRequestId() && isset($response->requestId)) {
                     file_put_contents(__DIR__ . '/../../tmp/request.log', $response->requestId);

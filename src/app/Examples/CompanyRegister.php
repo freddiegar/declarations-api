@@ -31,8 +31,8 @@ class CompanyRegister extends Service
             'payload' => [
                 'locale' => 'es',
                 'incomeType' => 'COMPANY_REGISTER',
-                'companyDocument' => '900299228',
                 'companyDocumentType' => 'NIT',
+                'companyDocument' => '900299228',
                 'additionalData' => [
                     'valueStrings' => [
                         [

@@ -31,8 +31,8 @@ class ConsumerRent extends Service
             'payload' => [
                 'locale' => 'en',
                 'incomeType' => 'CONSUMER_RENT',
-                'companyDocument' => '900000000',
                 'companyDocumentType' => 'NIT',
+                'companyDocument' => '900299228',
                 'payment' => [
                     'amount' => rand(1000000, 2000000),
                 ],

@@ -132,6 +132,10 @@ class RestService implements ServiceInterface
                 break;
         }
 
+        if (empty($serviceUrl)) {
+            throw new MyException('Service URL not valid to [' . $this->action() . '], define it and try again');
+        }
+
         return $serviceUrl;
     }
 }

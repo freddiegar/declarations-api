@@ -24,8 +24,8 @@ trait ServiceTrait
     /**
      * @var string
      */
-    private $url = 'https://dev.placetopay.com/autodeclaraciones';
-//    private $url = 'https://bender.freddie.dev/declarations/public';
+//    private $url = 'https://dev.placetopay.com/autodeclaraciones';
+    private $url = 'https://bender.freddie.dev/declarations/public';
 
     /**
      * @var array
