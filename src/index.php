@@ -7,6 +7,7 @@ use app\Exceptions\MyException;
 use Exception;
 
 require 'autoload.php';
+require 'helpers.php';
 
 try {
     $method = 'index';

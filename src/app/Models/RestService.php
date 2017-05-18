@@ -112,23 +112,25 @@ class RestService implements ServiceInterface
 
     /**
      * @return string
+     * @throws MyException
      */
     public function getServiceUrlFromAction()
     {
+        $url = $this->url();
         $serviceUrl = '';
 
         switch ($this->action()) {
             case ActionInterface::ACTION_CREATE_REQUEST;
-                $serviceUrl = $this->url() . '/api/v1/income-request';
+                $serviceUrl = $url . '/api/v1/income-request';
                 break;
             case ActionInterface::ACTION_INFORMATION_REQUEST;
-                $serviceUrl = $this->url() . '/api/v1/information-request';
+                $serviceUrl = $url . '/api/v1/information-request';
                 break;
             case ActionInterface::ACTION_MANAGE_COMPANY;
-                $serviceUrl = $this->url() . '/api/v1/companies';
+                $serviceUrl = $url . '/api/v1/companies';
                 break;
             case ActionInterface::ACTION_MANAGE_COMPANY_BIDDER;
-                $serviceUrl = $this->url() . '/api/v1/company-bidders';
+                $serviceUrl = $url . '/api/v1/company-bidders';
                 break;
         }
 

@@ -33,6 +33,11 @@ class SoapService extends SoapClient implements ServiceInterface
      */
     private $xml = '';
 
+    /**
+     * SoapService constructor.
+     * @param string $url
+     * @param string $action
+     */
     public function __construct($url, $action)
     {
         $this->setUrl($url);

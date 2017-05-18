@@ -11,21 +11,6 @@ use app\Constants\ServiceType;
  */
 trait ServiceTrait
 {
-    /**
-     * @var string
-     */
-    private $login = 'Xei3cZAwqn';
-
-    /**
-     * @var string
-     */
-    private $password = '9RPqFU1EIC326BpPX45Fk4WsIoOmc7EnfmxGZhvu';
-
-    /**
-     * @var string
-     */
-//    private $url = 'https://dev.placetopay.com/autodeclaraciones';
-    private $url = 'https://bender.freddie.dev/declarations/public';
 
     /**
      * @var array
@@ -42,7 +27,7 @@ trait ServiceTrait
      */
     public function login()
     {
-        return $this->login;
+        return env('SERVICE_LOGIN', '');
     }
 
     /**
@@ -50,7 +35,7 @@ trait ServiceTrait
      */
     public function password()
     {
-        return $this->password;
+        return env('SERVICE_PASSWORD', '');
     }
 
     /**
@@ -58,7 +43,7 @@ trait ServiceTrait
      */
     public function url()
     {
-        return $this->url;
+        return env('SERVICE_URL', '');
     }
 
     /**
