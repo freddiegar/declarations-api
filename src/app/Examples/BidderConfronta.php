@@ -6,10 +6,10 @@ use app\Contracts\ActionInterface;
 use app\Models\Service;
 
 /**
- * Class BidderEmail
+ * Class BidderConfronta
  * @package app\Examples
  */
-class BidderError extends Service
+class BidderConfronta extends Service
 {
     /**
      * @return string
@@ -26,16 +26,18 @@ class BidderError extends Service
     {
         return [
             'payload' => [
-                'locale' => 'en',
+                'locale' => 'es',
                 'companyDocumentType' => 'NIT',
                 'companyDocument' => '900299228',
                 'documentType' => 'CC',
-                'document' => '900000000',
+                'document' => '1023000000',
                 'bidderPosition' => '1',
-                'name' => 'Jon',
-                'surname' => 'Doe',
-                'email' => 'jon@doe.com',
-                'telephone' => '3211234567',
+                'incomeEnable' => [
+                    'code' => [
+                        'COMPANY_REGISTER',
+                        'CONSUMER_RENT',
+                    ],
+                ],
             ]
         ];
     }

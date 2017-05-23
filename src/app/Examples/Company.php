@@ -28,8 +28,8 @@ class Company extends Service
             'payload' => [
                 'locale' => 'en',
                 'documentType' => 'NIT',
-                'document' => '800112214',
-                'legalName' => 'False Inc.',
+                'document' => '900299228',
+                'legalName' => 'EGM Ingeniería Sin Fronteras.',
                 'status' => 'ACTIVE',
                 'country' => 'COL',
                 'state' => '05',
@@ -37,8 +37,13 @@ class Company extends Service
                 'incomeEnable' => [
                     'code' => [
                         'COMPANY_REGISTER',
+                        'CONSUMER_RENT',
                     ],
                 ],
+                // Optional
+                'comercialName' => 'Place to Pay',
+                'telephone' => '4442310',
+                'address' => 'Calle 53 # 42-112',
             ]
         ];
     }

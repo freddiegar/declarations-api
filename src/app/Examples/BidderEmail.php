@@ -38,9 +38,10 @@ class BidderEmail extends Service
                         'CONSUMER_RENT',
                     ],
                 ],
+                // Optional
                 'name' => 'Fredy',
                 'surname' => 'Mendivelso',
-                'email' => 'fredy@mendivelso.com',
+                'email' => 'fredy.mendivelso@placetopay.com',
                 'telephone' => '3211234567',
             ]
         ];
