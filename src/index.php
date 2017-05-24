@@ -38,9 +38,9 @@ try {
     }
 
     $controller = new Controller();
-    echo $controller->{$method}($options);
+    echo 'Server response: ' . $controller->{$method}($options);
 } catch (MyException $e) {
-    echo $e->getMessage();
+    echo 'Server error: ' . $e->getMessage();
 } catch (Exception $e) {
-    echo $e->getMessage();
+    echo 'Client exception: ' . $e->getMessage();
 }

@@ -64,11 +64,7 @@ abstract class Service extends ServiceAbstract
             if (!$response) {
                 $this->setResponse(sprintf('Response empty to %s in %s', $this->action(), $this->url()));
             } elseif ($response->status != ServiceResponse::SUCCESS) {
-                if (isset($response->message)) {
-                    $this->setResponse($response->message);
-                } else {
-                    $this->setResponse($response);
-                }
+                $this->setResponse($response);
             } else {
                 if ($this->saveRequestId() && isset($response->requestId)) {
                     file_put_contents(__DIR__ . '/../../tmp/request.log', $response->requestId);
@@ -94,11 +90,11 @@ abstract class Service extends ServiceAbstract
                 }
             }
         } catch (SoapFault $e) {
-            $this->setResponse($e->getMessage(), false);
+            $this->setResponse($e->getFile() . '(' . $e->getLine() . '): ' . $e->getMessage(), false);
         } catch (MyException $e) {
-            $this->setResponse($e->getMessage(), false);
+            $this->setResponse($e->getFile() . '(' . $e->getLine() . '): ' . $e->getMessage(), false);
         } catch (Exception $e) {
-            $this->setResponse($e->getMessage(), false);
+            $this->setResponse($e->getFile() . '(' . $e->getLine() . '): ' . $e->getMessage(), false);
         }
 
         return $this;

@@ -94,7 +94,7 @@ class RestService implements ServiceInterface
 
         $decoded = json_decode($result);
         if (isset($decoded->error)) {
-            throw new MyException($decoded);
+            throw new MyException($decoded->error);
         }
 
         return $decoded;
