@@ -2,11 +2,10 @@
 
 namespace app\Models;
 
-use app\Contracts\ServiceInterface;
-use app\Factories\ServiceFactory;
 use app\Constants\ServiceResponse;
 use app\Contracts\ServiceAbstract;
 use app\Exceptions\MyException;
+use app\Factories\ServiceFactory;
 use app\Traits\ActionResultTrait;
 use app\Traits\HelperTrait;
 use app\Traits\ServiceTrait;
@@ -24,19 +23,13 @@ abstract class Service extends ServiceAbstract
     use HelperTrait;
 
     /**
-     * @var ServiceInterface
-     */
-    private $service = null;
-
-    /**
      * Service constructor.
      * @param array $options
      */
     public function __construct(array $options = [])
     {
         $this->setOptions($options);
-        $this->service = ServiceFactory::instance($this->serviceType(), $this->url(), $this->action());
-        $this->service
+        $this->service(ServiceFactory::instance($this->serviceType(), $this->url(), $this->action()))
             ->setAuthentication($this->credentials())
             ->setRequest($this->data());
     }
@@ -48,7 +41,7 @@ abstract class Service extends ServiceAbstract
     {
         try {
             if ($this->getRequest()) {
-                $this->setResponse($this->service->getServiceRequest());
+                $this->setResponse($this->service()->getServiceRequest());
             }
 
             if ($this->noMakeCall()) {
@@ -56,13 +49,13 @@ abstract class Service extends ServiceAbstract
             }
 
             // Call WebService
-            $response = $this->service->serviceResponse(
-                $this->service->serviceCall(),
+            $response = $this->service()->serviceResponse(
+                $this->service()->serviceCall(),
                 $this->actionResult()
             );
 
             if (!$response) {
-                $this->setResponse(sprintf('Response empty to %s in %s', $this->action(), $this->url()));
+                $this->setResponse(sprintf('Response empty from %s', $this->service()->getServiceUrlFromAction()));
             } elseif ($response->status != ServiceResponse::SUCCESS) {
                 $this->setResponse($response);
             } else {
@@ -74,7 +67,7 @@ abstract class Service extends ServiceAbstract
 
                 if ($this->isRedirection() && $url) {
 
-                    if ($this->isConsole()) {
+                    if (isConsole()) {
                         // On console
                         $this->setResponse('Going to: ' . $url, false);
                     }

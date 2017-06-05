@@ -24,7 +24,7 @@ class Controller
     {
         $dir = 'app/Examples';
 
-        if ($this->isConsole()) {
+        if (isConsole()) {
             $message = 'Use syntax: php index.php example [' . implode('|', $this->commandHelp()) . ']';
         } else {
             $message = 'Use syntax: index.php/{Example}/[' . implode('/', $this->commandHelp()) . ']';
@@ -52,7 +52,7 @@ class Controller
         $text[] = '';
         $text[] = sprintf("%s", $this->showHelp());
 
-        return implode($this->breakLine(), $text);
+        return implode(breakLine(), $text);
     }
 
     /**

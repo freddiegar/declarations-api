@@ -11,22 +11,6 @@ use app\Constants\Command;
 trait HelperTrait
 {
     /**
-     * @return bool
-     */
-    protected function isConsole()
-    {
-        return 'cli' == php_sapi_name();
-    }
-
-    /**
-     * @return string
-     */
-    protected function breakLine()
-    {
-        return $this->isConsole() ? PHP_EOL : '<br/>';
-    }
-
-    /**
      * @return array
      */
     protected function help()
@@ -78,7 +62,7 @@ trait HelperTrait
     {
         $help = '';
         array_map(function ($item) use (&$help) {
-            $help .= sprintf("- %s:\t\t%s", $item['command'], $item['description']) . $this->breakLine();
+            $help .= sprintf("- %s:\t\t%s", $item['command'], $item['description']) . breakLine();
         }, $this->help());
 
         return $help;
@@ -141,7 +125,7 @@ trait HelperTrait
                 $spaces -= 0;
             }
 
-            $formatXml .= str_repeat(' ', $spaces) . $line . $this->breakLine();
+            $formatXml .= str_repeat(' ', $spaces) . $line . breakLine();
         }
 
         return $formatXml;

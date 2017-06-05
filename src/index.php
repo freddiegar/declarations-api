@@ -37,10 +37,15 @@ try {
         }
     }
 
+    $type = 'Server response:';
     $controller = new Controller();
-    echo 'Server response: ' . $controller->{$method}($options);
+    $response = $controller->{$method}($options);
 } catch (MyException $e) {
-    echo 'Server error: ' . $e->getMessage();
+    $type = 'Server error:';
+    $response = $e->getMessage();
 } catch (Exception $e) {
-    echo 'Client exception: ' . $e->getMessage();
+    $type = 'Client exception:';
+    $response = $e->getMessage();
+} finally {
+    echo $type . breakLine() . $response;
 }

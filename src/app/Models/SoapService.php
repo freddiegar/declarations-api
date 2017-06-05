@@ -151,7 +151,7 @@ class SoapService extends SoapClient implements ServiceInterface
         $this->serviceCall();
         $this->enableCall();
 
-        return $this->isConsole() ? $this->xml() : htmlentities($this->xml());
+        return isConsole() ? $this->xml() : htmlentities($this->xml());
     }
 
     /**
@@ -200,7 +200,7 @@ class SoapService extends SoapClient implements ServiceInterface
             case ActionInterface::ACTION_INFORMATION_REQUEST;
             case ActionInterface::ACTION_MANAGE_COMPANY;
             case ActionInterface::ACTION_MANAGE_COMPANY_BIDDER;
-                $serviceUrl =  $this->url() . '/api/soap/request?wsdl';
+                $serviceUrl =  $this->url() . '/api/soap/services?wsdl';
                 break;
         }
 

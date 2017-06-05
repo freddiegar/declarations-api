@@ -62,7 +62,7 @@ class RestService implements ServiceInterface
      */
     public function getServiceRequest()
     {
-        return $this->request();
+        return json_encode($this->request(), JSON_PRETTY_PRINT);
     }
 
     /**
@@ -76,6 +76,7 @@ class RestService implements ServiceInterface
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $this->getServiceUrlFromAction());
+        curl_setopt($curl, CURLOPT_USERAGENT, 'curl ' . (curl_version())['version']);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

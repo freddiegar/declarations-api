@@ -4,6 +4,7 @@ namespace app\Traits;
 
 use app\Constants\Command;
 use app\Constants\ServiceType;
+use app\Contracts\ServiceInterface;
 
 /**
  * Trait ServiceTrait
@@ -11,6 +12,11 @@ use app\Constants\ServiceType;
  */
 trait ServiceTrait
 {
+
+    /**
+     * @var ServiceInterface
+     */
+    private $service = null;
 
     /**
      * @var array
@@ -68,7 +74,7 @@ trait ServiceTrait
             $this->response = '';
         }
 
-        $this->response .= ($escapeHtml && !$this->isConsole()) ? "<pre>{$response}</pre><br/>" : $response . PHP_EOL;
+        $this->response .= ($escapeHtml && !isConsole()) ? "<pre>{$response}</pre><br/>" : $response . PHP_EOL;
 
         return $this;
     }
@@ -159,5 +165,18 @@ trait ServiceTrait
             'login' => $this->login(),
             'password' => $this->password(),
         ];
+    }
+
+    /**
+     * @param null $service
+     * @return ServiceInterface
+     */
+    protected function service($service = null)
+    {
+        if(!is_null($service)){
+            $this->service = $service;
+        }
+
+        return $this->service;
     }
 }

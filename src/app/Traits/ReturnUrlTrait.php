@@ -17,7 +17,7 @@ trait ReturnUrlTrait
     {
         $returnUrl = 'https://www.google.com.co/';
 
-        if (!$this->isConsole()) {
+        if (!isConsole()) {
             $protocol = ($_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
             $returnUrl = sprintf('%s%s%s/../public/index.php', $protocol, $_SERVER['SERVER_NAME'], $_SERVER['SCRIPT_NAME']);
 

@@ -86,4 +86,10 @@ abstract class ServiceAbstract
      * @return $this
      */
     abstract protected function call();
+
+    /**
+     * @param null $service
+     * @return mixed
+     */
+    abstract protected function service($service = null);
 }
