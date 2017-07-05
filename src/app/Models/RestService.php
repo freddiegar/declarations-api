@@ -133,10 +133,10 @@ class RestService implements ServiceInterface
             case ActionInterface::ACTION_MANAGE_COMPANY_BIDDER;
                 $serviceUrl = $url . '/api/v1/company-bidders';
                 break;
-        }
+            default:
+                throw new MyException('Service URL not valid to [' . $this->action() . '], define it and try again');
+                break;
 
-        if (empty($serviceUrl)) {
-            throw new MyException('Service URL not valid to [' . $this->action() . '], define it and try again');
         }
 
         return $serviceUrl;

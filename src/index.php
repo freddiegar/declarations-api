@@ -15,7 +15,7 @@ try {
     $queryString = '';
 
     if (!empty($_SERVER['QUERY_STRING'])) {
-        // For instance: consumerRent/xml in browser
+        // For instance: index.php?consumerRent/xml in browser
         $queryString = $_SERVER['QUERY_STRING'];
     } elseif (isset($argc)) {
         // For instance: index.php consumerRent xml in console

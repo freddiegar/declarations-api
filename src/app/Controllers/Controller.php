@@ -27,7 +27,7 @@ class Controller
         if (isConsole()) {
             $message = 'Use syntax: php index.php example [' . implode('|', $this->commandHelp()) . ']';
         } else {
-            $message = 'Use syntax: index.php/{Example}/[' . implode('/', $this->commandHelp()) . ']';
+            $message = 'Use syntax: index.php?{Example}/[' . implode('/', $this->commandHelp()) . ']';
         }
 
         $text[] = 'Hello dev!';
