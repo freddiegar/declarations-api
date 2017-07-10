@@ -27,6 +27,10 @@ class CompanyRegister extends Service
      */
     public function data()
     {
+
+//        $totalToPay = 5385495100;
+        $totalToPay = rand(1000000, 2000000);
+
         return [
             'payload' => [
                 'locale' => 'es',
@@ -93,7 +97,7 @@ class CompanyRegister extends Service
                         ],
                         [
                             'keyword' => 'total_to_pay',
-                            'value' => 5385495100,
+                            'value' => $totalToPay,
                         ]
                     ],
                     'valueArrays' => [
@@ -299,7 +303,7 @@ class CompanyRegister extends Service
                     ]
                 ],
                 'payment' => [
-                    'amount' => 5385495100,
+                    'amount' => $totalToPay,
                 ],
                 'returnUrl' => $this->returnUrl(),
             ]

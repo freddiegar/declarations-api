@@ -29,7 +29,7 @@ class ConsumerBeer extends Service
     {
         return [
             'payload' => [
-                'locale' => 'en',
+                'locale' => 'es',
                 'incomeType' => 'CONSUMER_BEER',
                 'companyDocumentType' => 'NIT',
                 'companyDocument' => '900299228',

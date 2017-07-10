@@ -198,6 +198,7 @@ class SoapService extends SoapClient implements ServiceInterface
         switch ($this->action()) {
             case ActionInterface::ACTION_CREATE_REQUEST;
             case ActionInterface::ACTION_INFORMATION_REQUEST;
+            case ActionInterface::ACTION_GET_PDF_REQUEST;
             case ActionInterface::ACTION_MANAGE_COMPANY;
             case ActionInterface::ACTION_MANAGE_COMPANY_BIDDER;
                 $serviceUrl =  $this->url() . '/api/soap/services?wsdl';

@@ -26,7 +26,7 @@ class BidderEmail extends Service
     {
         return [
             'payload' => [
-                'locale' => 'en',
+                'locale' => 'es',
                 'companyDocumentType' => 'NIT',
                 'companyDocument' => '900299228',
                 'documentType' => 'CC',

@@ -26,7 +26,7 @@ class Company extends Service
     {
         return [
             'payload' => [
-                'locale' => 'en',
+                'locale' => 'es',
                 'documentType' => 'NIT',
                 'document' => '900299228',
                 'legalName' => 'EGM Ingeniería Sin Fronteras.',

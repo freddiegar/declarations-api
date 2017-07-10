@@ -88,7 +88,7 @@ class RestService implements ServiceInterface
         if ($result === false) {
             $info = curl_getinfo($curl);
             curl_close($curl);
-            throw new MyException($info);
+            throw new MyException('Response empty from ' . $info['url'] . '. Not connection to server?', $info['http_code']);
         }
 
         curl_close($curl);
@@ -126,6 +126,9 @@ class RestService implements ServiceInterface
                 break;
             case ActionInterface::ACTION_INFORMATION_REQUEST;
                 $serviceUrl = $url . '/api/v1/information-request';
+                break;
+            case ActionInterface::ACTION_GET_PDF_REQUEST;
+                $serviceUrl = $url . '/api/v1/income-pdf';
                 break;
             case ActionInterface::ACTION_MANAGE_COMPANY;
                 $serviceUrl = $url . '/api/v1/companies';
