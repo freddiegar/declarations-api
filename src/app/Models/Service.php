@@ -59,8 +59,11 @@ abstract class Service extends ServiceAbstract
             } elseif ($response->status != ServiceResponse::SUCCESS) {
                 $this->setResponse($response);
             } else {
-                if ($this->saveRequestId() && isset($response->requestId)) {
+                if (isset($response->requestId)) {
                     file_put_contents(__DIR__ . '/../../tmp/request.log', $response->requestId);
+                }
+                if (isset($response->pdf)) {
+                    file_put_contents(__DIR__ . '/../../tmp/' . $response->reference . '.pdf', base64_decode($response->pdf));
                 }
 
                 $url = (isset($response->redirectTo)) ? $response->redirectTo : null;

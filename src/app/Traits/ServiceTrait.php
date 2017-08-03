@@ -68,13 +68,15 @@ trait ServiceTrait
      */
     protected function setResponse($response = null, $escapeHtml = true, $append = true)
     {
-        $response = print_r($response, 1);
+        if (!is_string($response)) {
+            $response = json_encode($response, JSON_PRETTY_PRINT);
+        }
 
         if (!$append) {
             $this->response = '';
         }
 
-        $this->response .= ($escapeHtml && !isConsole()) ? "<pre>{$response}</pre><br/>" : $response . PHP_EOL;
+        $this->response .= (($escapeHtml && !isConsole()) ? "<pre>{$response}</pre>" : $response) . breakLine();
 
         return $this;
     }
@@ -173,7 +175,7 @@ trait ServiceTrait
      */
     protected function service($service = null)
     {
-        if(!is_null($service)){
+        if (!is_null($service)) {
             $this->service = $service;
         }
 
