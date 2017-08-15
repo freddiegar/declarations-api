@@ -1,3 +1,4 @@
 src/tmp/*.log
+src/tmp/*.pdf
 src/.env
 .idea
