@@ -27,9 +27,10 @@ abstract class ServiceAbstract
     abstract public function url($url = null);
 
     /**
+     * @param null $response
      * @return mixed
      */
-    abstract public function response();
+    abstract public function response($response = null);
 
     /**
      * @param null $response

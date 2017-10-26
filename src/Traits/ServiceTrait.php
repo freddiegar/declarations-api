@@ -86,10 +86,16 @@ trait ServiceTrait
     }
 
     /**
+     * @param null $response
      * @return mixed
      */
-    public function response()
+    public function response($response = null)
     {
+        if (!is_null($response)) {
+            $this->response = $response;
+            return $this;
+        }
+
         return $this->response;
     }
 
