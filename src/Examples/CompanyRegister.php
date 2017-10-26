@@ -27,7 +27,7 @@ class CompanyRegister extends Service
      * @param array $data
      * @return array
      */
-    public function data(array $data = [])
+    public function data($data = null)
     {
 
         $totalToPay = rand(1000000, 2000000);

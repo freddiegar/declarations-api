@@ -25,7 +25,7 @@ class ConsumerCigarette extends Service
     /**
      * @return array
      */
-    public function data(array $data = [])
+    public function data($data = null)
     {
         return [
             'payload' => [

@@ -63,7 +63,7 @@ trait ServiceInterfaceTrait
      * @return string
      * @throws DeclarationApiException
      */
-    public function action($action = null)
+    public function action()
     {
         if (empty($this->action)) {
             throw new DeclarationApiException('Action not defined to ' . get_called_class());

@@ -118,7 +118,6 @@ class RestService implements ServiceInterface
     public function getServiceUrlFromAction()
     {
         $url = $this->url();
-        $serviceUrl = '';
 
         switch ($this->action()) {
             case ActionInterface::ACTION_CREATE_REQUEST;

@@ -124,7 +124,7 @@ abstract class Service extends ServiceAbstract
      * @param array $data
      * @return $this|array
      */
-    public function data(array $data = [])
+    public function data($data = null)
     {
         if (!is_null($data)) {
             $this->data = $data;

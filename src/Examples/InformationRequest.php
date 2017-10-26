@@ -22,7 +22,7 @@ class InformationRequest extends Service
     /**
      * @return array
      */
-    public function data(array $data = [])
+    public function data($data = null)
     {
         $file = __DIR__ . '/../../tmp/request.log';
 
