@@ -23,6 +23,16 @@ abstract class Service extends ServiceAbstract
     use HelperTrait;
 
     /**
+     * @var null
+     */
+    private $action = null;
+
+    /**
+     * @var array
+     */
+    private $data = [];
+
+    /**
      * Service constructor.
      * @param array $options
      */
@@ -98,13 +108,29 @@ abstract class Service extends ServiceAbstract
 
     /**
      * @param null $action
-     * @return string
+     * @return $this|null
      */
-    abstract public function action($action = null);
+    public function action($action = null)
+    {
+        if (!is_null($action)) {
+            $this->action = $action;
+            return $this;
+        }
+
+        return $this->action;
+    }
 
     /**
      * @param array $data
-     * @return array
+     * @return $this|array
      */
-    abstract public function data(array $data = []);
+    public function data(array $data = [])
+    {
+        if (!is_null($data)) {
+            $this->data = $data;
+            return $this;
+        }
+
+        return $this->data;
+    }
 }
