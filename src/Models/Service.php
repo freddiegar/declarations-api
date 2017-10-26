@@ -97,12 +97,14 @@ abstract class Service extends ServiceAbstract
     }
 
     /**
+     * @param null $action
      * @return string
      */
-    abstract public function action();
+    abstract public function action($action = null);
 
     /**
+     * @param array $data
      * @return array
      */
-    abstract public function data();
+    abstract public function data(array $data = []);
 }

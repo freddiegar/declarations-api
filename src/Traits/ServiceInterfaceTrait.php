@@ -63,7 +63,7 @@ trait ServiceInterfaceTrait
      * @return string
      * @throws MyException
      */
-    public function action()
+    public function action($action = null)
     {
         if (empty($this->action)) {
             throw new MyException('Action not defined to ' . get_called_class());

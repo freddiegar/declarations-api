@@ -17,7 +17,7 @@ class ConsumerCigarette extends Service
     /**
      * @return string
      */
-    public function action()
+    public function action($action = null)
     {
         return ActionInterface::ACTION_CREATE_REQUEST;
     }
@@ -25,7 +25,7 @@ class ConsumerCigarette extends Service
     /**
      * @return array
      */
-    public function data()
+    public function data(array $data = [])
     {
         return [
             'payload' => [

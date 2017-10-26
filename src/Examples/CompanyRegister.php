@@ -15,20 +15,21 @@ class CompanyRegister extends Service
     use ReturnUrlTrait;
 
     /**
+     * @param null $action
      * @return string
      */
-    public function action()
+    public function action($action = null)
     {
         return ActionInterface::ACTION_CREATE_REQUEST;
     }
 
     /**
+     * @param array $data
      * @return array
      */
-    public function data()
+    public function data(array $data = [])
     {
 
-//        $totalToPay = 5385495100;
         $totalToPay = rand(1000000, 2000000);
 
         return [

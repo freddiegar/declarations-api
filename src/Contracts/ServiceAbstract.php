@@ -9,14 +9,22 @@ namespace FreddieGar\DeclarationApi\Contracts;
 abstract class ServiceAbstract
 {
     /**
+     * @param null $login
      * @return string
      */
-    abstract public function login();
+    abstract public function login($login = null);
 
     /**
+     * @param null $password
      * @return string
      */
-    abstract public function password();
+    abstract public function password($password = null);
+
+    /**
+     * @param null $url
+     * @return string
+     */
+    abstract public function url($url = null);
 
     /**
      * @return mixed

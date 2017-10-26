@@ -14,7 +14,7 @@ class Company extends Service
     /**
      * @return string
      */
-    public function action()
+    public function action($action = null)
     {
         return ActionInterface::ACTION_MANAGE_COMPANY;
     }
@@ -22,7 +22,7 @@ class Company extends Service
     /**
      * @return array
      */
-    public function data()
+    public function data(array $data = [])
     {
         return [
             'payload' => [

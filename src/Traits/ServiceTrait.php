@@ -29,27 +29,60 @@ trait ServiceTrait
     private $response = null;
 
     /**
-     * @return string
+     * @var string
      */
-    public function login()
+    private $login = null;
+
+    /**
+     * @var string
+     */
+    private $password = null;
+
+    /**
+     * @var string
+     */
+    private $url = null;
+
+    /**
+     * @param null $login
+     * @return $this|null
+     */
+    public function login($login = null)
     {
-        return env('SERVICE_LOGIN', '');
+        if (!is_null($login)) {
+            $this->login = $login;
+            return $this;
+        }
+
+        return env('SERVICE_LOGIN', $this->login);
     }
 
     /**
-     * @return string
+     * @param null $password
+     * @return $this|null
      */
-    public function password()
+    public function password($password = null)
     {
-        return env('SERVICE_PASSWORD', '');
+        if (!is_null($password)) {
+            $this->password = $password;
+            return $this;
+        }
+
+        return env('SERVICE_PASSWORD', $this->password);
     }
 
     /**
-     * @return string
+     * @param null $url
+     * @return $this|null
      */
-    public function url()
+    public function url($url = null)
     {
-        return env('SERVICE_URL', '');
+        if (!is_null($url)) {
+            $this->url = $url;
+            return $this;
+        }
+
+        return env('SERVICE_URL', $this->url);
     }
 
     /**

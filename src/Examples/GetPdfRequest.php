@@ -14,7 +14,7 @@ class GetPdfRequest extends Service
     /**
      * @return string
      */
-    public function action()
+    public function action($action = null)
     {
         return ActionInterface::ACTION_GET_PDF_REQUEST;
     }
@@ -22,7 +22,7 @@ class GetPdfRequest extends Service
     /**
      * @return array
      */
-    public function data()
+    public function data(array $data = [])
     {
         $file = __DIR__ . '/../../tmp/request.log';
 
