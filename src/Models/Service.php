@@ -66,7 +66,7 @@ abstract class Service extends ServiceAbstract
 
             if (!$response) {
                 $this->setResponse(sprintf('Response empty from %s', $this->service()->getServiceUrlFromAction()));
-            } elseif ($response->status != ServiceResponse::SUCCESS) {
+            } elseif (empty($response->status) || $response->status != ServiceResponse::SUCCESS) {
                 $this->setResponse($response);
             } else {
                 if (isset($response->requestId)) {
