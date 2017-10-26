@@ -1,4 +1,4 @@
-src/tmp/*.log
-src/tmp/*.pdf
-src/.env
+examples/tmp/*.*
+vendor
+.env
 .idea

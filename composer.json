@@ -1,0 +1,16 @@
+{
+    "name": "freddiegar/declarations-api",
+    "description": "Declarations API",
+    "type": "library",
+    "require": {
+        "php": ">=5.6",
+        "ext-soap": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "FreddieGar\\DeclarationApi\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "minimum-stability": "dev"
+}

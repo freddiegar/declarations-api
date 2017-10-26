@@ -1,2 +1,3 @@
 # Client SOAP and Restfull
-WSSecurity example
+
+Create declaration with Place to Pay

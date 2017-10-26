@@ -1,6 +1,6 @@
 <?php
 
-use app\Exceptions\MyException;
+use FreddieGar\DeclarationApi\Exceptions\MyException;
 
 if (!function_exists('env')) {
     /**
@@ -14,7 +14,7 @@ if (!function_exists('env')) {
         static $env = [];
 
         if (count($env) == 0) {
-            $configs = file('.env');
+            $configs = file('../.env');
 
             if (!$configs) {
                 throw new MyException('File .env not found, create it and try again.');
