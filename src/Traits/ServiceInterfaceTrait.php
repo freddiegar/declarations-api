@@ -2,7 +2,7 @@
 
 namespace FreddieGar\DeclarationApi\Traits;
 
-use FreddieGar\DeclarationApi\Exceptions\MyException;
+use FreddieGar\DeclarationApi\Exceptions\DeclarationApiException;
 
 /**
  * Trait ServiceTrait
@@ -38,12 +38,12 @@ trait ServiceInterfaceTrait
 
     /**
      * @return string
-     * @throws MyException
+     * @throws DeclarationApiException
      */
     public function url()
     {
         if (empty($this->url)) {
-            throw new MyException('Url not defined to ' . get_called_class());
+            throw new DeclarationApiException('Url not defined to ' . get_called_class());
         }
 
         return $this->url;
@@ -61,12 +61,12 @@ trait ServiceInterfaceTrait
 
     /**
      * @return string
-     * @throws MyException
+     * @throws DeclarationApiException
      */
     public function action($action = null)
     {
         if (empty($this->action)) {
-            throw new MyException('Action not defined to ' . get_called_class());
+            throw new DeclarationApiException('Action not defined to ' . get_called_class());
         }
 
         return $this->action;
@@ -84,12 +84,12 @@ trait ServiceInterfaceTrait
 
     /**
      * @return array
-     * @throws MyException
+     * @throws DeclarationApiException
      */
     public function request()
     {
         if (empty($this->request)) {
-            throw new MyException('Request not defined to ' . get_called_class());
+            throw new DeclarationApiException('Request not defined to ' . get_called_class());
         }
 
         return $this->request;

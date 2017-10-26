@@ -1,13 +1,13 @@
 <?php
 
-use FreddieGar\DeclarationApi\Exceptions\MyException;
+use FreddieGar\DeclarationApi\Exceptions\DeclarationApiException;
 
 if (!function_exists('env')) {
     /**
      * @param $var
      * @param null $default
      * @return null
-     * @throws MyException
+     * @throws DeclarationApiException
      */
     function env($var, $default = null)
     {
@@ -17,7 +17,7 @@ if (!function_exists('env')) {
             $configs = file('../.env');
 
             if (!$configs) {
-                throw new MyException('File .env not found, create it and try again.');
+                throw new DeclarationApiException('File .env not found, create it and try again.');
             }
 
             foreach ($configs as $config) {

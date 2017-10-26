@@ -4,7 +4,7 @@ namespace FreddieGar\DeclarationApi\Models;
 
 use FreddieGar\DeclarationApi\Contracts\ActionInterface;
 use FreddieGar\DeclarationApi\Contracts\ServiceInterface;
-use FreddieGar\DeclarationApi\Exceptions\MyException;
+use FreddieGar\DeclarationApi\Exceptions\DeclarationApiException;
 use FreddieGar\DeclarationApi\Traits\ServiceInterfaceTrait;
 
 /**
@@ -67,7 +67,7 @@ class RestService implements ServiceInterface
 
     /**
      * @return mixed
-     * @throws MyException
+     * @throws DeclarationApiException
      */
     public function serviceCall()
     {
@@ -88,14 +88,14 @@ class RestService implements ServiceInterface
         if ($result === false) {
             $info = curl_getinfo($curl);
             curl_close($curl);
-            throw new MyException('Response empty from ' . $info['url'] . '. Not connection to server?', $info['http_code']);
+            throw new DeclarationApiException('Response empty from ' . $info['url'] . '. Not connection to server?', $info['http_code']);
         }
 
         curl_close($curl);
 
         $decoded = json_decode($result);
         if (isset($decoded->error)) {
-            throw new MyException($decoded->error);
+            throw new DeclarationApiException($decoded->error);
         }
 
         return $decoded;
@@ -113,7 +113,7 @@ class RestService implements ServiceInterface
 
     /**
      * @return string
-     * @throws MyException
+     * @throws DeclarationApiException
      */
     public function getServiceUrlFromAction()
     {
@@ -137,7 +137,7 @@ class RestService implements ServiceInterface
                 $serviceUrl = $url . '/api/v1/company-bidders';
                 break;
             default:
-                throw new MyException('Service URL not valid to [' . $this->action() . '], define it and try again');
+                throw new DeclarationApiException('Service URL not valid to [' . $this->action() . '], define it and try again');
                 break;
 
         }

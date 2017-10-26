@@ -4,7 +4,7 @@ namespace FreddieGar\DeclarationApi\Models;
 
 use FreddieGar\DeclarationApi\Constants\ServiceResponse;
 use FreddieGar\DeclarationApi\Contracts\ServiceAbstract;
-use FreddieGar\DeclarationApi\Exceptions\MyException;
+use FreddieGar\DeclarationApi\Exceptions\DeclarationApiException;
 use FreddieGar\DeclarationApi\Factories\ServiceFactory;
 use FreddieGar\DeclarationApi\Traits\ActionResultTrait;
 use FreddieGar\DeclarationApi\Traits\HelperTrait;
@@ -97,7 +97,7 @@ abstract class Service extends ServiceAbstract
             }
         } catch (SoapFault $e) {
             $this->setResponse($e->getFile() . '(' . $e->getLine() . '): ' . $e->getMessage(), false);
-        } catch (MyException $e) {
+        } catch (DeclarationApiException $e) {
             $this->setResponse($e->getFile() . '(' . $e->getLine() . '): ' . $e->getMessage(), false);
         } catch (Exception $e) {
             $this->setResponse($e->getFile() . '(' . $e->getLine() . '): ' . $e->getMessage(), false);

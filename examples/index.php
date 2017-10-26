@@ -1,7 +1,7 @@
 <?php
 
 use FreddieGar\DeclarationApi\Controllers\Controller;
-use FreddieGar\DeclarationApi\Exceptions\MyException;
+use FreddieGar\DeclarationApi\Exceptions\DeclarationApiException;
 
 require '../vendor/autoload.php';
 require '../src/helpers.php';
@@ -36,7 +36,7 @@ try {
     $type = 'Server response:';
     $controller = new Controller();
     $response = $controller->{$method}($options);
-} catch (MyException $e) {
+} catch (DeclarationApiException $e) {
     $type = 'Server error:';
     $response = $e->getMessage();
 } catch (Exception $e) {

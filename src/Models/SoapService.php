@@ -4,7 +4,7 @@ namespace FreddieGar\DeclarationApi\Models;
 
 use FreddieGar\DeclarationApi\Contracts\ActionInterface;
 use FreddieGar\DeclarationApi\Contracts\ServiceInterface;
-use FreddieGar\DeclarationApi\Exceptions\MyException;
+use FreddieGar\DeclarationApi\Exceptions\DeclarationApiException;
 use FreddieGar\DeclarationApi\Traits\HelperTrait;
 use FreddieGar\DeclarationApi\Traits\ServiceInterfaceTrait;
 use SoapClient;
@@ -189,7 +189,7 @@ class SoapService extends SoapClient implements ServiceInterface
 
     /**
      * @return string
-     * @throws MyException
+     * @throws DeclarationApiException
      */
     public function getServiceUrlFromAction()
     {
@@ -206,7 +206,7 @@ class SoapService extends SoapClient implements ServiceInterface
         }
 
         if (empty($serviceUrl)) {
-            throw new MyException('Service URL not valid to [' . $this->action() . '], define it and try again');
+            throw new DeclarationApiException('Service URL not valid to [' . $this->action() . '], define it and try again');
         }
 
         return $serviceUrl;
