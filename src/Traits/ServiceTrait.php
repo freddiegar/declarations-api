@@ -44,6 +44,11 @@ trait ServiceTrait
     private $url = null;
 
     /**
+     * @var bool
+     */
+    private $debug = false;
+
+    /**
      * @param null $login
      * @return $this|null
      */
@@ -83,6 +88,20 @@ trait ServiceTrait
         }
 
         return env('SERVICE_URL', $this->url);
+    }
+
+    /**
+     * @param null $debug
+     * @return $this|null
+     */
+    public function debug($debug = null)
+    {
+        if (!is_null($debug)) {
+            $this->debug = $debug;
+            return $this;
+        }
+
+        return env('DEBUG', $this->debug);
     }
 
     /**
@@ -219,5 +238,13 @@ trait ServiceTrait
         }
 
         return $this->service;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnableDebug()
+    {
+        return true === $this->debug();
     }
 }

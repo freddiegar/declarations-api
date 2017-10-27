@@ -101,4 +101,9 @@ abstract class ServiceAbstract
      * @return mixed
      */
     abstract protected function service($service = null);
+
+    /**
+     * @return bool
+     */
+    abstract public function isEnableDebug();
 }
