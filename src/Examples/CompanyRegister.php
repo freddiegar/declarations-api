@@ -41,7 +41,7 @@ class CompanyRegister extends Service
                 'additionalData' => [
                     'valueStrings' => [
                         [
-                            'keyword' => 'bidder',
+                            'keyword' => 'bidder_type',
                             'value' => 'CHAMBER_COMMERCE',
                         ],
                         [

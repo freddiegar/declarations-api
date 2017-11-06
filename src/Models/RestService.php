@@ -68,7 +68,7 @@ class RestService implements ServiceInterface
     }
 
     /**
-     * @return mixed
+     * @return object
      * @throws DeclarationApiException
      */
     public function serviceCall()
@@ -77,6 +77,8 @@ class RestService implements ServiceInterface
             $client = new Client([
                 'base_uri' => $this->url(),
                 'verify' => false,
+                'timeout' => 10,
+                'allow_redirects' => true,
             ]);
             $response = $client->post($this->getServiceUrlFromAction(), [
                 'json' => $this->request(),
@@ -91,7 +93,8 @@ class RestService implements ServiceInterface
             throw new DeclarationApiException('Response empty from ' . $this->getServiceUrlFromAction() . '. Not connection to server?');
         }
 
-        $decoded = json_decode($result, true);
+        $decoded = json_decode($result);
+
         if (isset($decoded->error)) {
             throw new DeclarationApiException($decoded->error);
         }
