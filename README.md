@@ -67,8 +67,8 @@ class IncomeRequestService extends Service
         }
 
         // Extra options @see FreddieGar\DeclarationApi\Constants\Command;
-        // $options[Command::REQUEST] = true;
-        // $options[Command::NO_CALL] = true;
+        // $options[] = Command::REQUEST;
+        // $options[] = Command::NO_CALL;
 
         parent::__construct($options);
     }
