@@ -6,6 +6,8 @@ use FreddieGar\DeclarationApi\Contracts\ActionInterface;
 use FreddieGar\DeclarationApi\Contracts\ServiceInterface;
 use FreddieGar\DeclarationApi\Exceptions\DeclarationApiException;
 use FreddieGar\DeclarationApi\Traits\ServiceInterfaceTrait;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 
 /**
  * Class Service
@@ -71,29 +73,25 @@ class RestService implements ServiceInterface
      */
     public function serviceCall()
     {
-        $headers[] = 'Accept: application/json';
-        $headers[] = 'multipart/form-data';
+        try {
+            $client = new Client([
+                'base_uri' => $this->url(),
+                'verify' => false,
+            ]);
+            $response = $client->post($this->getServiceUrlFromAction(), [
+                'json' => $this->request(),
+            ]);
 
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->getServiceUrlFromAction());
-        curl_setopt($curl, CURLOPT_USERAGENT, 'curl ' . (curl_version())['version']);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->request()));
-        $result = curl_exec($curl);
-
-        if ($result === false) {
-            $info = curl_getinfo($curl);
-            curl_close($curl);
-            throw new DeclarationApiException('Response empty from ' . $info['url'] . '. Not connection to server?', $info['http_code']);
+            $result = $response->getBody()->getContents();
+        } catch (\Exception $e) {
+            throw new DeclarationApiException($e->getMessage());
         }
 
-        curl_close($curl);
+        if ($result === false) {
+            throw new DeclarationApiException('Response empty from ' . $this->getServiceUrlFromAction() . '. Not connection to server?');
+        }
 
-        $decoded = json_decode($result);
+        $decoded = json_decode($result, true);
         if (isset($decoded->error)) {
             throw new DeclarationApiException($decoded->error);
         }

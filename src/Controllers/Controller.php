@@ -22,7 +22,7 @@ class Controller
      */
     public function index()
     {
-        $dir = 'app/Examples';
+        $dir = '../src/Examples';
 
         if (isConsole()) {
             $message = 'Use syntax: php index.php example [' . implode('|', $this->commandHelp()) . ']';
