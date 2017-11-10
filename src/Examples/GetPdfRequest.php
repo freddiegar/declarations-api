@@ -24,7 +24,7 @@ class GetPdfRequest extends Service
      */
     public function data($data = null)
     {
-        $file = __DIR__ . '/../../tmp/request.log';
+        $file = __DIR__ . '/../../examples/tmp/request.log';
 
         return [
             'payload' => [

@@ -314,7 +314,7 @@ class ConsumerWine extends Service
                 ],
                 'payment' => [
                     'amount' => 1404000,
-                    'credit_concept' => [
+                    /*'credit_concept' => [
                         [
                             'entity_code' => '001',
                             'service_code' => '001',
@@ -336,7 +336,7 @@ class ConsumerWine extends Service
                             'tax_value' => 0,
                             'description' => ''
                         ],
-                    ],
+                    ],*/
                 ],
                 'returnUrl' => $this->returnUrl(),
             ]
