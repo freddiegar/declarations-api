@@ -98,11 +98,11 @@ abstract class Service extends ServiceAbstract
                 }
             }
         } catch (SoapFault $e) {
-            $this->setResponse($e->getFile() . '(' . $e->getLine() . '): ' . $e->getMessage(), false);
+            $this->setResponse($e->getMessage(), false);
         } catch (DeclarationApiException $e) {
-            $this->setResponse($e->getFile() . '(' . $e->getLine() . '): ' . $e->getMessage(), false);
+            $this->setResponse($e->getMessage(), false);
         } catch (Exception $e) {
-            $this->setResponse($e->getFile() . '(' . $e->getLine() . '): ' . $e->getMessage(), false);
+            $this->setResponse($e->getMessage(), false);
         }
 
         return $this;

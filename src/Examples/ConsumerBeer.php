@@ -604,7 +604,7 @@ class ConsumerBeer extends Service
                     ]
                 ],
                 'payment' => [
-                    'amount' => 790684000,
+                    'amount' => rand(1000000, 6000000),
                 ],
                 'returnUrl' => $this->returnUrl(),
             ]

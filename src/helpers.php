@@ -17,7 +17,7 @@ if (!function_exists('env')) {
             $configs = file('../.env');
 
             if (!$configs) {
-                throw new DeclarationApiException('File .env not found, create it and try again.');
+                return $env[$var] = $default;
             }
 
             foreach ($configs as $config) {
