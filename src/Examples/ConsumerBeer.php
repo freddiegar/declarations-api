@@ -29,10 +29,10 @@ class ConsumerBeer extends Service
     {
         return [
             'payload' => [
-                'locale' => 'es',
+                'locale' => 'es-CO',
                 'incomeType' => 'CONSUMER_BEER',
                 'companyDocumentType' => 'NIT',
-                'companyDocument' => '900299228',
+                'companyDocument' => '900000000',
                 'additionalData' => [
                     'valueStrings' => [
                         [

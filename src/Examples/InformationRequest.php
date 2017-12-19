@@ -28,7 +28,7 @@ class InformationRequest extends Service
 
         return [
             'payload' => [
-                'locale' => 'es',
+                'locale' => 'es-CO',
                 'requestId' => (file_exists($file)) ? file_get_contents($file) : '',
             ]
         ];

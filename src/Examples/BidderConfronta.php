@@ -26,16 +26,16 @@ class BidderConfronta extends Service
     {
         return [
             'payload' => [
-                'locale' => 'es',
+                'locale' => 'es-CO',
                 'companyDocumentType' => 'NIT',
-                'companyDocument' => '900299228',
+                'companyDocument' => '900000000',
                 'documentType' => 'CC',
                 'document' => '1023000000',
                 'bidderPosition' => '1',
                 'incomeEnable' => [
                     'code' => [
                         'COMPANY_REGISTER',
-                        'CONSUMER_RENT',
+                        'CONSUMER_BEER',
                     ],
                 ],
             ]

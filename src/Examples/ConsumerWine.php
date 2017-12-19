@@ -29,10 +29,10 @@ class ConsumerWine extends Service
     {
         return [
             'payload' => [
-                'locale' => 'es',
+                'locale' => 'es-CO',
                 'incomeType' => 'CONSUMER_WINE',
                 'companyDocumentType' => 'NIT',
-                'companyDocument' => '900299228',
+                'companyDocument' => '900000000',
                 'additionalData' => [
                     'valueStrings' => [
                         [
@@ -314,29 +314,6 @@ class ConsumerWine extends Service
                 ],
                 'payment' => [
                     'amount' => 1404000,
-                    /*'credit_concept' => [
-                        [
-                            'entity_code' => '001',
-                            'service_code' => '001',
-                            'amount_Value' => 519480,
-                            'tax_value' => 0,
-                            'description' => ''
-                        ],
-                        [
-                            'entity_code' => '001',
-                            'service_code' => '002',
-                            'amount_Value' => 42120,
-                            'tax_value' => 0,
-                            'description' => ''
-                        ],
-                        [
-                            'entity_code' => '001',
-                            'service_code' => '003',
-                            'amount_Value' => 842400,
-                            'tax_value' => 0,
-                            'description' => ''
-                        ],
-                    ],*/
                 ],
                 'returnUrl' => $this->returnUrl(),
             ]

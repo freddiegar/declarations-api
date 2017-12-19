@@ -26,10 +26,10 @@ class Company extends Service
     {
         return [
             'payload' => [
-                'locale' => 'es',
+                'locale' => 'es-CO',
                 'documentType' => 'NIT',
-                'document' => '900299228',
-                'legalName' => 'EGM Ingeniería Sin Fronteras.',
+                'document' => '900000000',
+                'legalName' => 'Test Inc.',
                 'status' => 'ACTIVE',
                 'country' => 'COL',
                 'state' => '05',
@@ -37,11 +37,11 @@ class Company extends Service
                 'incomeEnable' => [
                     'code' => [
                         'COMPANY_REGISTER',
-                        'CONSUMER_RENT',
+                        'CONSUMER_BEER',
                     ],
                 ],
                 // Optional
-                'comercialName' => 'Place to Pay',
+                'comercialName' => 'Testing',
                 'telephone' => '4442310',
                 'address' => 'Calle 53 # 42-112',
             ]
