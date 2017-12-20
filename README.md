@@ -1,12 +1,12 @@
-# Client SOAP and Restfull
+# Client SOAP and RestFull
 
 Create declaration with Place to Pay.
 
 Installation
 --
 
-```
-composer require freddiegar/declarations-api:dev-master
+```bash
+composer require freddiegar/declarations-api:^1.0.0
 ```
 
 Need help
@@ -23,7 +23,7 @@ https://localhost/declarations-api/examples/index.php?CompanyRegister/link
 Example Service Class
 --
 
-```
+```php
 <?php
 
 namespace App\Contracts\Incomes;
@@ -85,7 +85,7 @@ class IncomeRequestService extends Service
 Use it
 --
 
-```
+```php
 $options = [];
 $options['login'] = 'loginServiceSecret';
 $options['password'] = 'passworServiceSecret';
