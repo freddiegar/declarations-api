@@ -8,6 +8,6 @@ use Exception;
  * Class MyException
  * @package app\Exceptions
  */
-class DeclarationApiException extends Exception
+class DeclarationClientException extends Exception
 {
 }

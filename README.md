@@ -28,7 +28,7 @@ Example Service Class
 
 namespace App\Contracts\Incomes;
 
-use PlacetoPay\DeclarationClient\Exceptions\DeclarationApiException;
+use PlacetoPay\DeclarationClient\Exceptions\DeclarationClientException;
 use PlacetoPay\DeclarationClient\Models\Service;
 
 class IncomeRequestService extends Service
@@ -37,23 +37,23 @@ class IncomeRequestService extends Service
     public function __construct(array $options = [])
     {
         if (empty($options['url'])) {
-            throw new DeclarationApiException('Set url service');
+            throw new DeclarationClientException('Set url service');
         }
 
         if (empty($options['login'])) {
-            throw new DeclarationApiException('Set login service use');
+            throw new DeclarationClientException('Set login service use');
         }
 
         if (empty($options['password'])) {
-            throw new DeclarationApiException('Set password service use');
+            throw new DeclarationClientException('Set password service use');
         }
 
         if (empty($options['action'])) {
-            throw new DeclarationApiException('Set action execute in service');
+            throw new DeclarationClientException('Set action execute in service');
         }
 
         if (empty($options['data'])) {
-            throw new DeclarationApiException('Set data to send');
+            throw new DeclarationClientException('Set data to send');
         }
 
         $this->url($options['url'])
@@ -101,4 +101,4 @@ try {
 }
 ```
 
-That's all! :P
+That's all!

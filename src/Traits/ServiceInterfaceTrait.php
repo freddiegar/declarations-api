@@ -2,7 +2,7 @@
 
 namespace PlacetoPay\DeclarationClient\Traits;
 
-use PlacetoPay\DeclarationClient\Exceptions\DeclarationApiException;
+use PlacetoPay\DeclarationClient\Exceptions\DeclarationClientException;
 
 /**
  * Trait ServiceTrait
@@ -38,12 +38,12 @@ trait ServiceInterfaceTrait
 
     /**
      * @return string
-     * @throws DeclarationApiException
+     * @throws DeclarationClientException
      */
     public function url()
     {
         if (empty($this->url)) {
-            throw new DeclarationApiException('Url not defined to ' . get_called_class());
+            throw new DeclarationClientException('Url not defined to ' . get_called_class());
         }
 
         return $this->url;
@@ -61,12 +61,12 @@ trait ServiceInterfaceTrait
 
     /**
      * @return string
-     * @throws DeclarationApiException
+     * @throws DeclarationClientException
      */
     public function action()
     {
         if (empty($this->action)) {
-            throw new DeclarationApiException('Action not defined to ' . get_called_class());
+            throw new DeclarationClientException('Action not defined to ' . get_called_class());
         }
 
         return $this->action;
@@ -84,12 +84,12 @@ trait ServiceInterfaceTrait
 
     /**
      * @return array
-     * @throws DeclarationApiException
+     * @throws DeclarationClientException
      */
     public function request()
     {
         if (empty($this->request)) {
-            throw new DeclarationApiException('Request not defined to ' . get_called_class());
+            throw new DeclarationClientException('Request not defined to ' . get_called_class());
         }
 
         return $this->request;

@@ -4,7 +4,7 @@ namespace PlacetoPay\DeclarationClient\Models;
 
 use PlacetoPay\DeclarationClient\Contracts\ActionInterface;
 use PlacetoPay\DeclarationClient\Contracts\ServiceInterface;
-use PlacetoPay\DeclarationClient\Exceptions\DeclarationApiException;
+use PlacetoPay\DeclarationClient\Exceptions\DeclarationClientException;
 use PlacetoPay\DeclarationClient\Traits\HelperTrait;
 use PlacetoPay\DeclarationClient\Traits\ServiceInterfaceTrait;
 use SoapClient;
@@ -189,7 +189,7 @@ class SoapService extends SoapClient implements ServiceInterface
 
     /**
      * @return string
-     * @throws DeclarationApiException
+     * @throws DeclarationClientException
      */
     public function getServiceUrlFromAction()
     {
@@ -206,7 +206,7 @@ class SoapService extends SoapClient implements ServiceInterface
         }
 
         if (empty($serviceUrl)) {
-            throw new DeclarationApiException('Service URL not valid to [' . $this->action() . '], define it and try again');
+            throw new DeclarationClientException('Service URL not valid to [' . $this->action() . '], define it and try again');
         }
 
         return $serviceUrl;

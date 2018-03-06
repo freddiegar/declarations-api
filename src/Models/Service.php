@@ -4,7 +4,7 @@ namespace PlacetoPay\DeclarationClient\Models;
 
 use PlacetoPay\DeclarationClient\Constants\ServiceResponse;
 use PlacetoPay\DeclarationClient\Contracts\ServiceAbstract;
-use PlacetoPay\DeclarationClient\Exceptions\DeclarationApiException;
+use PlacetoPay\DeclarationClient\Exceptions\DeclarationClientException;
 use PlacetoPay\DeclarationClient\Factories\ServiceFactory;
 use PlacetoPay\DeclarationClient\Traits\ActionResultTrait;
 use PlacetoPay\DeclarationClient\Traits\HelperTrait;
@@ -99,7 +99,7 @@ abstract class Service extends ServiceAbstract
             }
         } catch (SoapFault $e) {
             $this->setResponse($e->getMessage(), false);
-        } catch (DeclarationApiException $e) {
+        } catch (DeclarationClientException $e) {
             $this->setResponse($e->getMessage(), false);
         } catch (Exception $e) {
             $this->setResponse($e->getMessage(), false);

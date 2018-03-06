@@ -2,7 +2,7 @@
 
 namespace PlacetoPay\DeclarationClient\Controllers;
 
-use PlacetoPay\DeclarationClient\Exceptions\DeclarationApiException;
+use PlacetoPay\DeclarationClient\Exceptions\DeclarationClientException;
 use PlacetoPay\DeclarationClient\Models\Service;
 use PlacetoPay\DeclarationClient\Traits\HelperTrait;
 
@@ -18,7 +18,7 @@ class Controller
 
     /**
      * @return string
-     * @throws DeclarationApiException
+     * @throws DeclarationClientException
      */
     public function index()
     {
@@ -35,7 +35,7 @@ class Controller
         $text[] = 'Try using one the following example : ';
 
         if (!is_dir($dir)) {
-            throw new DeclarationApiException(sprintf('Directory [%s] from %s not is valid.', $dir, getcwd()));
+            throw new DeclarationClientException(sprintf('Directory [%s] from %s not is valid.', $dir, getcwd()));
         }
 
         $examples = opendir($dir);
@@ -59,14 +59,14 @@ class Controller
      * @param $method
      * @param array $options
      * @return mixed
-     * @throws DeclarationApiException
+     * @throws DeclarationClientException
      */
     public function __call($method, array $options = [])
     {
         $class = self::DIR_EXAMPLES . ucfirst($method);
 
         if (!class_exists($class)) {
-            throw new DeclarationApiException("Method [{$method}] not exist in " . get_class($this), 1);
+            throw new DeclarationClientException("Method [{$method}] not exist in " . get_class($this), 1);
         }
 
         /** @var Service $service */
@@ -78,12 +78,12 @@ class Controller
     /**
      * @param $method
      * @param array $options
-     * @throws DeclarationApiException
+     * @throws DeclarationClientException
      */
     public static function __callStatic($method, array $options = [])
     {
         if (!method_exists(self::class, $method)) {
-            throw new DeclarationApiException("Method static [{$method}] not exist on " . get_class(self::class), 1);
+            throw new DeclarationClientException("Method static [{$method}] not exist on " . get_class(self::class), 1);
         }
     }
 }

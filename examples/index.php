@@ -1,7 +1,7 @@
 <?php
 
 use PlacetoPay\DeclarationClient\Controllers\Controller;
-use PlacetoPay\DeclarationClient\Exceptions\DeclarationApiException;
+use PlacetoPay\DeclarationClient\Exceptions\DeclarationClientException;
 
 require '../vendor/autoload.php';
 require '../src/helpers.php';
@@ -36,7 +36,7 @@ try {
     $type = 'Server response:';
     $controller = new Controller();
     $response = $controller->{$method}($options);
-} catch (DeclarationApiException $e) {
+} catch (DeclarationClientException $e) {
     $type = 'Server error:';
     $response = $e->getMessage();
 } catch (Exception $e) {

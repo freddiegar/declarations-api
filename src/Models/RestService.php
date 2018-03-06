@@ -4,7 +4,7 @@ namespace PlacetoPay\DeclarationClient\Models;
 
 use PlacetoPay\DeclarationClient\Contracts\ActionInterface;
 use PlacetoPay\DeclarationClient\Contracts\ServiceInterface;
-use PlacetoPay\DeclarationClient\Exceptions\DeclarationApiException;
+use PlacetoPay\DeclarationClient\Exceptions\DeclarationClientException;
 use PlacetoPay\DeclarationClient\Traits\ServiceInterfaceTrait;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
@@ -69,7 +69,7 @@ class RestService implements ServiceInterface
 
     /**
      * @return object
-     * @throws DeclarationApiException
+     * @throws DeclarationClientException
      */
     public function serviceCall()
     {
@@ -86,17 +86,17 @@ class RestService implements ServiceInterface
 
             $result = $response->getBody()->getContents();
         } catch (\Exception $e) {
-            throw new DeclarationApiException($e->getMessage());
+            throw new DeclarationClientException($e->getMessage());
         }
 
         if ($result === false) {
-            throw new DeclarationApiException('Response empty from ' . $this->getServiceUrlFromAction() . '. Not connection to server?');
+            throw new DeclarationClientException('Response empty from ' . $this->getServiceUrlFromAction() . '. Not connection to server?');
         }
 
         $decoded = json_decode($result);
 
         if (isset($decoded->error)) {
-            throw new DeclarationApiException($decoded->error);
+            throw new DeclarationClientException($decoded->error);
         }
 
         return $decoded;
@@ -114,7 +114,7 @@ class RestService implements ServiceInterface
 
     /**
      * @return string
-     * @throws DeclarationApiException
+     * @throws DeclarationClientException
      */
     public function getServiceUrlFromAction()
     {
@@ -137,7 +137,7 @@ class RestService implements ServiceInterface
                 $serviceUrl = $url . '/api/v1/company-bidders';
                 break;
             default:
-                throw new DeclarationApiException('Service URL not valid to [' . $this->action() . '], define it and try again');
+                throw new DeclarationClientException('Service URL not valid to [' . $this->action() . '], define it and try again');
                 break;
 
         }
