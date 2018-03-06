@@ -1,6 +1,6 @@
 <?php
 
-namespace FreddieGar\DeclarationApi\Constants;
+namespace PlacetoPay\DeclarationClient\Constants;
 
 /**
  * Interface ServiceType

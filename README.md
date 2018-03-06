@@ -6,7 +6,7 @@ Installation
 --
 
 ```bash
-composer require freddiegar/declarations-api:^1.0.0
+composer require placetopay/declaration-client:^1.0.0
 ```
 
 Need help
@@ -15,9 +15,9 @@ Need help
 Going to 
 
 ```
-https://localhost/declarations-api/examples/index.php 
+https://localhost/examples/index.php 
 // or
-https://localhost/declarations-api/examples/index.php?CompanyRegister/link
+https://localhost/examples/index.php?CompanyRegister/link
 ```
  
 Example Service Class
@@ -28,8 +28,8 @@ Example Service Class
 
 namespace App\Contracts\Incomes;
 
-use FreddieGar\DeclarationApi\Exceptions\DeclarationApiException;
-use FreddieGar\DeclarationApi\Models\Service;
+use PlacetoPay\DeclarationClient\Exceptions\DeclarationApiException;
+use PlacetoPay\DeclarationClient\Models\Service;
 
 class IncomeRequestService extends Service
 {
@@ -66,7 +66,7 @@ class IncomeRequestService extends Service
             unset($options[$option]);
         }
 
-        // Extra options @see FreddieGar\DeclarationApi\Constants\Command;
+        // Extra options @see PlacetoPay\DeclarationClient\Constants\Command;
         // $options[] = Command::REQUEST;
         // $options[] = Command::NO_CALL;
 

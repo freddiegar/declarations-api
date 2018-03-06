@@ -1,6 +1,6 @@
 {
-    "name": "freddiegar/declarations-api",
-    "description": "Declarations API",
+    "name": "placetopay/declaration-client",
+    "description": "Declarations Client",
     "type": "library",
     "require": {
         "php": ">=5.6",
@@ -13,7 +13,7 @@
             "src/helpers.php"
         ],
         "psr-4": {
-            "FreddieGar\\DeclarationApi\\": "src/"
+            "PlacetoPay\\DeclarationClient\\": "src/"
         }
     },
     "license": "MIT",

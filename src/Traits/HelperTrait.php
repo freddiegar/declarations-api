@@ -1,8 +1,8 @@
 <?php
 
-namespace FreddieGar\DeclarationApi\Traits;
+namespace PlacetoPay\DeclarationClient\Traits;
 
-use FreddieGar\DeclarationApi\Constants\Command;
+use PlacetoPay\DeclarationClient\Constants\Command;
 
 /**
  * Trait HelperTrait

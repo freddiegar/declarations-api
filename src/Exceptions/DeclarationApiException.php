@@ -1,6 +1,6 @@
 <?php
 
-namespace FreddieGar\DeclarationApi\Exceptions;
+namespace PlacetoPay\DeclarationClient\Exceptions;
 
 use Exception;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace FreddieGar\DeclarationApi\Traits;
+namespace PlacetoPay\DeclarationClient\Traits;
 
 /**
  * Trait ReturnUrlTrait

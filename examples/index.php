@@ -1,7 +1,7 @@
 <?php
 
-use FreddieGar\DeclarationApi\Controllers\Controller;
-use FreddieGar\DeclarationApi\Exceptions\DeclarationApiException;
+use PlacetoPay\DeclarationClient\Controllers\Controller;
+use PlacetoPay\DeclarationClient\Exceptions\DeclarationApiException;
 
 require '../vendor/autoload.php';
 require '../src/helpers.php';

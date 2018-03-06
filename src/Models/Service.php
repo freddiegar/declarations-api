@@ -1,14 +1,14 @@
 <?php
 
-namespace FreddieGar\DeclarationApi\Models;
+namespace PlacetoPay\DeclarationClient\Models;
 
-use FreddieGar\DeclarationApi\Constants\ServiceResponse;
-use FreddieGar\DeclarationApi\Contracts\ServiceAbstract;
-use FreddieGar\DeclarationApi\Exceptions\DeclarationApiException;
-use FreddieGar\DeclarationApi\Factories\ServiceFactory;
-use FreddieGar\DeclarationApi\Traits\ActionResultTrait;
-use FreddieGar\DeclarationApi\Traits\HelperTrait;
-use FreddieGar\DeclarationApi\Traits\ServiceTrait;
+use PlacetoPay\DeclarationClient\Constants\ServiceResponse;
+use PlacetoPay\DeclarationClient\Contracts\ServiceAbstract;
+use PlacetoPay\DeclarationClient\Exceptions\DeclarationApiException;
+use PlacetoPay\DeclarationClient\Factories\ServiceFactory;
+use PlacetoPay\DeclarationClient\Traits\ActionResultTrait;
+use PlacetoPay\DeclarationClient\Traits\HelperTrait;
+use PlacetoPay\DeclarationClient\Traits\ServiceTrait;
 use Exception;
 use SoapFault;
 

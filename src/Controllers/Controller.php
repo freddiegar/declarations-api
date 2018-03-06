@@ -1,10 +1,10 @@
 <?php
 
-namespace FreddieGar\DeclarationApi\Controllers;
+namespace PlacetoPay\DeclarationClient\Controllers;
 
-use FreddieGar\DeclarationApi\Exceptions\DeclarationApiException;
-use FreddieGar\DeclarationApi\Models\Service;
-use FreddieGar\DeclarationApi\Traits\HelperTrait;
+use PlacetoPay\DeclarationClient\Exceptions\DeclarationApiException;
+use PlacetoPay\DeclarationClient\Models\Service;
+use PlacetoPay\DeclarationClient\Traits\HelperTrait;
 
 /**
  * Class Controller
@@ -14,7 +14,7 @@ class Controller
 {
     use HelperTrait;
 
-    const DIR_EXAMPLES = 'FreddieGar\DeclarationApi\Examples\\';
+    const DIR_EXAMPLES = 'PlacetoPay\DeclarationClient\Examples\\';
 
     /**
      * @return string

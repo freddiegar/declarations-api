@@ -1,6 +1,6 @@
 <?php
 
-namespace FreddieGar\DeclarationApi\Contracts;
+namespace PlacetoPay\DeclarationClient\Contracts;
 
 /**
  * Class ServiceAbstract

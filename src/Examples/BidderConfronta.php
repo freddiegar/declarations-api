@@ -1,9 +1,9 @@
 <?php
 
-namespace FreddieGar\DeclarationApi\Examples;
+namespace PlacetoPay\DeclarationClient\Examples;
 
-use FreddieGar\DeclarationApi\Contracts\ActionInterface;
-use FreddieGar\DeclarationApi\Models\Service;
+use PlacetoPay\DeclarationClient\Contracts\ActionInterface;
+use PlacetoPay\DeclarationClient\Models\Service;
 
 /**
  * Class BidderConfronta

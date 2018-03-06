@@ -1,10 +1,10 @@
 <?php
 
-namespace FreddieGar\DeclarationApi\Factories;
+namespace PlacetoPay\DeclarationClient\Factories;
 
-use FreddieGar\DeclarationApi\Constants\ServiceType;
-use FreddieGar\DeclarationApi\Models\RestService;
-use FreddieGar\DeclarationApi\Models\SoapService;
+use PlacetoPay\DeclarationClient\Constants\ServiceType;
+use PlacetoPay\DeclarationClient\Models\RestService;
+use PlacetoPay\DeclarationClient\Models\SoapService;
 
 /**
  * Class ServiceFactory

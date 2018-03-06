@@ -1,10 +1,10 @@
 <?php
 
-namespace FreddieGar\DeclarationApi\Traits;
+namespace PlacetoPay\DeclarationClient\Traits;
 
-use FreddieGar\DeclarationApi\Constants\Command;
-use FreddieGar\DeclarationApi\Constants\ServiceType;
-use FreddieGar\DeclarationApi\Contracts\ServiceInterface;
+use PlacetoPay\DeclarationClient\Constants\Command;
+use PlacetoPay\DeclarationClient\Constants\ServiceType;
+use PlacetoPay\DeclarationClient\Contracts\ServiceInterface;
 
 /**
  * Trait ServiceTrait

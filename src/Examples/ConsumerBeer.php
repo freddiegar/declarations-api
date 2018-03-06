@@ -1,10 +1,10 @@
 <?php 
 
-namespace FreddieGar\DeclarationApi\Examples;
+namespace PlacetoPay\DeclarationClient\Examples;
 
-use FreddieGar\DeclarationApi\Contracts\ActionInterface;
-use FreddieGar\DeclarationApi\Models\Service;
-use FreddieGar\DeclarationApi\Traits\ReturnUrlTrait;
+use PlacetoPay\DeclarationClient\Contracts\ActionInterface;
+use PlacetoPay\DeclarationClient\Models\Service;
+use PlacetoPay\DeclarationClient\Traits\ReturnUrlTrait;
 
 /**
  * Class ConsumerBeer

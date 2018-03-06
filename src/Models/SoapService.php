@@ -1,12 +1,12 @@
 <?php
 
-namespace FreddieGar\DeclarationApi\Models;
+namespace PlacetoPay\DeclarationClient\Models;
 
-use FreddieGar\DeclarationApi\Contracts\ActionInterface;
-use FreddieGar\DeclarationApi\Contracts\ServiceInterface;
-use FreddieGar\DeclarationApi\Exceptions\DeclarationApiException;
-use FreddieGar\DeclarationApi\Traits\HelperTrait;
-use FreddieGar\DeclarationApi\Traits\ServiceInterfaceTrait;
+use PlacetoPay\DeclarationClient\Contracts\ActionInterface;
+use PlacetoPay\DeclarationClient\Contracts\ServiceInterface;
+use PlacetoPay\DeclarationClient\Exceptions\DeclarationApiException;
+use PlacetoPay\DeclarationClient\Traits\HelperTrait;
+use PlacetoPay\DeclarationClient\Traits\ServiceInterfaceTrait;
 use SoapClient;
 use SoapHeader;
 use SoapVar;
