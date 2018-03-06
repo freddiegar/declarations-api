@@ -1,5 +1,30 @@
 <?php
 
+if (!function_exists('env')) {
+    /**
+     * @param $var
+     * @param null $default
+     * @return array|false|null|string
+     */
+    function env($var, $default = null)
+    {
+        static $loaded = null;
+
+        if (!$loaded) {
+            $loaded = true;
+            try {
+                $dotenv = new Dotenv\Dotenv(__DIR__);
+                $dotenv->load();
+            } finally {
+                // File not exist
+                return $default;
+            }
+        }
+
+        return getenv($var);
+    }
+}
+
 if (!function_exists('isConsole')) {
     /**
      * @return bool
