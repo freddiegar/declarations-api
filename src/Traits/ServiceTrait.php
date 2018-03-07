@@ -5,6 +5,7 @@ namespace PlacetoPay\DeclarationClient\Traits;
 use PlacetoPay\DeclarationClient\Constants\Command;
 use PlacetoPay\DeclarationClient\Constants\ServiceType;
 use PlacetoPay\DeclarationClient\Contracts\ServiceInterface;
+use function PlacetoPay\DeclarationClient\env;
 
 /**
  * Trait ServiceTrait
@@ -50,7 +51,7 @@ trait ServiceTrait
 
     /**
      * @param null $login
-     * @return $this|null
+     * @return $this|string
      */
     public function login($login = null)
     {
@@ -64,7 +65,7 @@ trait ServiceTrait
 
     /**
      * @param null $password
-     * @return $this|null
+     * @return $this|string
      */
     public function password($password = null)
     {
@@ -78,7 +79,7 @@ trait ServiceTrait
 
     /**
      * @param null $url
-     * @return $this|null
+     * @return $this|string
      */
     public function url($url = null)
     {
@@ -92,7 +93,7 @@ trait ServiceTrait
 
     /**
      * @param null $debug
-     * @return $this|null
+     * @return $this|string
      */
     public function debug($debug = null)
     {

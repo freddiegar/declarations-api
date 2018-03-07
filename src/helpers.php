@@ -1,5 +1,7 @@
 <?php
 
+namespace PlacetoPay\DeclarationClient;
+
 if (!function_exists('env')) {
     /**
      * @param $var
@@ -13,7 +15,7 @@ if (!function_exists('env')) {
         if (!$loaded) {
             $loaded = true;
             try {
-                $dotenv = new Dotenv\Dotenv(__DIR__);
+                $dotenv = new \Dotenv\Dotenv(__DIR__);
                 $dotenv->load();
             } finally {
                 // File not exist
