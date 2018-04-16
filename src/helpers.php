@@ -23,7 +23,7 @@ if (!function_exists('env')) {
             }
         }
 
-        return getenv($var);
+        return getenv($var) ? getenv($var) : $default;
     }
 }
 
