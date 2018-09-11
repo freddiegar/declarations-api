@@ -5,7 +5,6 @@ namespace PlacetoPay\DeclarationClient\Traits;
 use PlacetoPay\DeclarationClient\Constants\Command;
 use PlacetoPay\DeclarationClient\Constants\ServiceType;
 use PlacetoPay\DeclarationClient\Contracts\ServiceInterface;
-use function PlacetoPay\DeclarationClient\env;
 
 /**
  * Trait ServiceTrait
