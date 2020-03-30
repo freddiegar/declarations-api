@@ -5,8 +5,8 @@
     "require": {
         "php": "^7.2",
         "ext-soap": "*",
-        "guzzlehttp/guzzle": "^7.0",
-        "vlucas/phpdotenv": "^4.1"
+        "guzzlehttp/guzzle": "~6.0",
+        "vlucas/phpdotenv": "~3.3"
     },
     "autoload": {
         "files": [
